@@ -62,6 +62,39 @@
                 <input asp-for="Dyspozycyjnosc" class="form-control" />
                 <span asp-validation-for="Dyspozycyjnosc" class="text-danger"></span>
             </div>
+
+
+            <div class="form-group">
+                <label class="control-label">Wybierz dyspozycyjność:</label>
+                <div class="form-check">
+                    <input type="checkbox" name="Dyspozycyjnosc" class="form-check-input" value="Monday" />
+                    <label class="form-check-label">Poniedziałek</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="Dyspozycyjnosc" class="form-check-input" value="Tuesday" />
+                    <label class="form-check-label">Wtorek</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="Dyspozycyjnosc" class="form-check-input" value="Wednesday" />
+                    <label class="form-check-label">Środa</label>
+                </div>
+                <span asp-validation-for="Dyspozycyjnosc" class="text-danger"></span>
+            </div>
+
+           <!--<div class="form-group form-check">
+                <label asp-for="Dyspozycyjnosc" class="control-label"></label>
+                <select asp-for="Dyspozycyjnosc" class="form-control">
+                    <option value="">Wybierz </option>
+                    <option value="Monday">Poniedziałek</option>
+                    <option value="Tuseday">Wtorek</option>
+                    <option value="Wednsday">Środa</option>
+                </select>
+                <span asp-validation-for="Dyspozycyjnosc" class="text-danger"></span>
+            </div>
+            -->
+
+
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

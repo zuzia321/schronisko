@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Schronisko.Models;
+using Schronisko.Views.Tekstowy;
 using System;
 
 namespace Schronisko.Controllers
@@ -22,6 +23,17 @@ namespace Schronisko.Controllers
             Console.WriteLine($"{wolontariusz.Imie}");
 
             return View();
+        }
+
+        private WidokTekstowy view;
+        public WolontariuszController(WidokTekstowy view)
+        {
+            this.view = view;
+        }
+        public void StworzIWyswietlWolontariusza()
+        {
+            Wolontariusz nowyWolontariusz = view.stworzWolontariusza();
+            view.WyswietlWolontariusza(nowyWolontariusz);
         }
     }
 }
