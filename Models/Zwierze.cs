@@ -2,7 +2,7 @@
 {
     public class Zwierze
     {
-        public string Id { get; set; }
+        //public string Id { get; set; }
         public string Imie { get; set; }
         public string Wiek {  get; set; }
         public DateTime OdKiedyWSchronisku {  get; set; }

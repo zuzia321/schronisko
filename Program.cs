@@ -14,6 +14,10 @@ builder.Services.AddControllersWithViews();
 // Rejestracja us³ugi WidokTekstowy, aby mog³a byæ wstrzykniêta do kontrolera
 builder.Services.AddSingleton<WidokTekstowy>();
 builder.Services.AddSingleton<Menu>();
+builder.Services.AddSingleton<MenuGlowne>();
+builder.Services.AddSingleton<MenuAdmin>();
+builder.Services.AddSingleton<MenuWolontariusz>();
+builder.Services.AddSingleton<Logowanie>();
 
 var app = builder.Build();
 
@@ -38,52 +42,42 @@ app.MapControllerRoute(
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-
-
-    var options = new List<string>
-        {
-            "Formularz Wolontariusza",
-            "Zwierzêta do adopcji",
-            "Informacje o schronisku",
-            "Darowizna",
-            "Strona internetowa",
-            "Zakoñcz przegl¹danie"
-        };
     var opcje = new List<string>
     {
         //weryfikacja
         "Goœæ",
         "Wolontariusz",
-        "Administrator"
+        "Administrator",
+        "Zakoñcz przegl¹danie"
     };
-    var menu = services.GetRequiredService<Menu>();
+   // var menu = services.GetRequiredService<Menu>();
+    var logowanie=services.GetRequiredService<Logowanie>();
     var widokTekstowy = services.GetRequiredService<WidokTekstowy>();
     while (true)
     {
         AnsiConsole.Clear();
-        AnsiConsole.Markup("[bold][on Pink1][Deeppink4]FUTRZANA FERAJNA[/][/][/]\n\n");
+
+        var font = FigletFont.Load("Small.flf");
+
+        AnsiConsole.Write(
+            new FigletText(font, "FUTRZANA FERAJNA\n\n")
+                .Centered()
+                .Color(Color.DeepPink3));
+
+       
+        //AnsiConsole.Markup("[bold][on Pink1][Deeppink4]FUTRZANA FERAJNA[/][/][/]\n\n");
 
         var choice = AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
                     .Title("Wybierz opcjê:")
                     .AddChoices(opcje)
                     .HighlightStyle(new Style(foreground: Color.DeepPink3_1, background: Color.Pink1)));
-        menu.Logowanie(choice);
+        logowanie.Login(choice,widokTekstowy,app);
     }
+    
+    //var menuLogowania = services.GetRequiredService<Logowanie>(); // U¿ycie nowej klasy
+    //menuLogowania.MenuLogowania(app);
 
-    while (true)
-    {
-        AnsiConsole.Clear();
-        AnsiConsole.Markup("[bold][on Pink1][Deeppink4]FUTRZANA FERAJNA[/][/][/]\n\n");
-
-        var choice = AnsiConsole.Prompt(
-                new SelectionPrompt<string>()
-                    .Title("Wybierz opcjê:")
-                    .AddChoices(options)
-                    .HighlightStyle(new Style(foreground: Color.DeepPink3_1, background: Color.Pink1)));
-
-        menu.MenuGlowne(choice, widokTekstowy, app);
-    }
 }
 // Uruchomienie aplikacji
 //app.Run();

@@ -12,5 +12,7 @@
         public string Opis { get; set; }
         public bool Doswiadczenie { get; set; }
         public string Dyspozycyjnosc {  get; set; }
+
+        //public void index()
     }
 }
