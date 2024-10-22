@@ -25,15 +25,17 @@ namespace Schronisko.Controllers
             return View();
         }
 
-        private WidokTekstowy view;
-        public WolontariuszController(WidokTekstowy view)
+
+        //konsola
+        private WidokTekstowy widokTekstowy;
+        public WolontariuszController(WidokTekstowy _widokTekstowy)
         {
-            this.view = view;
+            widokTekstowy = _widokTekstowy;
         }
         public void StworzIWyswietlWolontariusza()
         {
-            Wolontariusz nowyWolontariusz = view.stworzWolontariusza();
-            view.WyswietlWolontariusza(nowyWolontariusz);
+            Wolontariusz nowyWolontariusz = widokTekstowy.stworzWolontariusza();
+            widokTekstowy.WyswietlWolontariusza(nowyWolontariusz);
         }
     }
 }

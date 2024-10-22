@@ -14,10 +14,6 @@ namespace Schronisko.Views.Tekstowy
             {
                 return;
             }
-            else if (choice == "Strona internetowa")
-            {
-                app.Run();
-            }
             else if (choice == "Zakończ przeglądanie")
             {
                 AnsiConsole.Markup("[bold red]KONIEC...[/]\n");

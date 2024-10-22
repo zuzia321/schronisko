@@ -48,6 +48,7 @@ using (var scope = app.Services.CreateScope())
         "Goœæ",
         "Wolontariusz",
         "Administrator",
+        "Strona internetowa",
         "Zakoñcz przegl¹danie"
     };
    // var menu = services.GetRequiredService<Menu>();

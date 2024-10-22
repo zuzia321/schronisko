@@ -95,18 +95,16 @@ namespace Schronisko.Views.Tekstowy
                     AnsiConsole.Markup("admin");
                     menu.OpcjeAdmin(widokTekstowy, app);
                 }
-                //AnsiConsole.WriteLine("\n\nNaciśnij dowolny klawisz, aby kontynuować...");
-                //Console.ReadKey();
+            }
+            else if (choice == "Strona internetowa")
+            {
+                app.Run();
             }
             else if (choice == "Zakończ przeglądanie")
             {
                 AnsiConsole.Markup("[bold red]KONIEC...[/]\n");
                 Environment.Exit(0);
             }
-
-           // AnsiConsole.WriteLine("\n\nNaciśnij dowolny klawisz, aby kontynuować...");
-            //Console.ReadKey();
-
         }
     }
 }

@@ -15,24 +15,29 @@ namespace Schronisko.Controllers
             return View();
         }
 
+
+        string plik = "Animals.txt";
         [HttpPost]
         public ActionResult CreateZwierze(Zwierze zwierze)
         {
             ViewBag.Message = zwierze.Imie + " , " + zwierze.RodzajZwierzecia + ", " + zwierze.Wiek;
             Console.WriteLine($"{zwierze.Imie}");
-
+            
+            string daneZwierze = $"{zwierze.Imie};{zwierze.Wiek};{zwierze.OdKiedyWSchronisku};{zwierze.RodzajZwierzecia};{zwierze.Gatunek};{zwierze.Stan};{zwierze.Opis}";
+            System.IO.File.AppendAllText(plik, daneZwierze);
+            
             return View();
         }
 
-        private WidokTekstowy view;
-        public ZwierzeController(WidokTekstowy view)
+        private WidokTekstowy widokTekstowy;
+        public ZwierzeController(WidokTekstowy _widokTekstowy)
         {
-            this.view = view;
+            widokTekstowy = _widokTekstowy;
         }
         public void StworzIWyswietlZwierze()
         {
-            Zwierze noweZwierze = view.stworzZwierze();
-            view.WyswietlZwierze(noweZwierze);
+            Zwierze noweZwierze = widokTekstowy.stworzZwierze();
+            widokTekstowy.WyswietlZwierze(noweZwierze);
         }
     }
 }

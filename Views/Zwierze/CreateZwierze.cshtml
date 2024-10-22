@@ -28,11 +28,19 @@
                 <input asp-for="Wiek" class="form-control" />
                 <span asp-validation-for="Wiek" class="text-danger"></span>
             </div>
+
             <div class="form-group">
+                <label asp-for="OdKiedyWSchronisku" class="control-label"></label>
+                <input asp-for="OdKiedyWSchronisku" class="form-control" type="date" />
+                <span asp-validation-for="OdKiedyWSchronisku" class="text-danger"></span>
+            </div>
+            <!-- automatyczne
+                <div class="form-group">
                 <label asp-for="OdKiedyWSchronisku" class="control-label"></label>
                 <input asp-for="OdKiedyWSchronisku" class="form-control" />
                 <span asp-validation-for="OdKiedyWSchronisku" class="text-danger"></span>
             </div>
+            -->
             <div class="form-group">
                 <label asp-for="RodzajZwierzecia" class="control-label"></label>
                 <input asp-for="RodzajZwierzecia" class="form-control" />

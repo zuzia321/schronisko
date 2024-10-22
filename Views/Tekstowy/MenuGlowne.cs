@@ -15,15 +15,13 @@ namespace Schronisko.Views.Tekstowy
                 AnsiConsole.Markup("[Deeppink1]FORMULARZ[/]\n");
                 var wolontariuszController = new WolontariuszController(widokTekstowy);
                 wolontariuszController.StworzIWyswietlWolontariusza();
+                AnsiConsole.WriteLine("\n\nNaciśnij dowolny klawisz, aby kontynuować...");
+                Console.ReadKey(); 
             }
             else if (choice == "Zwierzęta do adopcji")
             {
                 AnsiConsole.Markup("[Deeppink1]ZWIERZĘTA[/]\n");
                 _zwierzeta.WyswietlZwierzeta(widokTekstowy);
-
-                AnsiConsole.WriteLine("\n\nNaciśnij dowolny klawisz, aby kontynuować...");
-                Console.ReadKey();   
-
             }
             else if (choice == "Informacje o schronisku")
             {
@@ -46,10 +44,6 @@ namespace Schronisko.Views.Tekstowy
                 
                 AnsiConsole.WriteLine("\n\nNaciśnij dowolny klawisz, aby kontynuować...");
                 Console.ReadKey();
-            }
-            else if (choice == "Strona internetowa")
-            {
-                app.Run();
             }
             else if(choice=="Powrót")
             {

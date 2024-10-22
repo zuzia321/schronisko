@@ -27,11 +27,19 @@
                 <input asp-for="Nazwisko" class="form-control" />
                 <span asp-validation-for="Nazwisko" class="text-danger"></span>
             </div>
+
             <div class="form-group">
+                <label asp-for="DataUrodzenia" class="control-label"></label>
+                <input asp-for="DataUrodzenia" class="form-control" type="date" />
+                <span asp-validation-for="DataUrodzenia" class="text-danger"></span>
+            </div>
+            
+            <!--<div class="form-group">
                 <label asp-for="DataUrodzenia" class="control-label"></label>
                 <input asp-for="DataUrodzenia" class="form-control" />
                 <span asp-validation-for="DataUrodzenia" class="text-danger"></span>
             </div>
+            -->
             <div class="form-group">
                 <label asp-for="Telefon" class="control-label"></label>
                 <input asp-for="Telefon" class="form-control" />
@@ -57,30 +65,53 @@
                     <input class="form-check-input" asp-for="Doswiadczenie" /> @Html.DisplayNameFor(model => model.Doswiadczenie)
                 </label>
             </div>
+            @{
+                var dniTygodnia= new List<string> { "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota", "Niedziela" };
+            }
             <div class="form-group">
-                <label asp-for="Dyspozycyjnosc" class="control-label"></label>
-                <input asp-for="Dyspozycyjnosc" class="form-control" />
-                <span asp-validation-for="Dyspozycyjnosc" class="text-danger"></span>
+                <label class="control-label">Wybierz dyspozycyjność: </label>
+                @foreach (var dzien in dniTygodnia)
+                {
+                    <div class="form-check">
+                        <input type="checkbox" name="Dyspozycyjnosc" class="form-check-input" value="@dzien" />
+                        <label class="form-check-label">@dzien</label>
+                    </div>
+                }
             </div>
-
-
+            <!--
             <div class="form-group">
                 <label class="control-label">Wybierz dyspozycyjność:</label>
                 <div class="form-check">
-                    <input type="checkbox" name="Dyspozycyjnosc" class="form-check-input" value="Monday" />
+                    <input type="checkbox" name="Dyspozycyjnosc" class="form-check-input" value="Poniedziałek" />
                     <label class="form-check-label">Poniedziałek</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" name="Dyspozycyjnosc" class="form-check-input" value="Tuesday" />
+                    <input type="checkbox" name="Dyspozycyjnosc" class="form-check-input" value="Wtorek" />
                     <label class="form-check-label">Wtorek</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" name="Dyspozycyjnosc" class="form-check-input" value="Wednesday" />
+                    <input type="checkbox" name="Dyspozycyjnosc" class="form-check-input" value="Środa" />
                     <label class="form-check-label">Środa</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="Dyspozycyjnosc" class="form-check-input" value="Czwartek" />
+                    <label class="form-check-label">Czwartek</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="Dyspozycyjnosc" class="form-check-input" value="Piątek" />
+                    <label class="form-check-label">Piątek</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="Dyspozycyjnosc" class="form-check-input" value="Sobota" />
+                    <label class="form-check-label">Sobota</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="Dyspozycyjnosc" class="form-check-input" value="Niedziela" />
+                    <label class="form-check-label">Niedziela</label>
                 </div>
                 <span asp-validation-for="Dyspozycyjnosc" class="text-danger"></span>
             </div>
-
+            -->
            <!--<div class="form-group form-check">
                 <label asp-for="Dyspozycyjnosc" class="control-label"></label>
                 <select asp-for="Dyspozycyjnosc" class="form-control">
@@ -92,8 +123,6 @@
                 <span asp-validation-for="Dyspozycyjnosc" class="text-danger"></span>
             </div>
             -->
-
-
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

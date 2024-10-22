@@ -28,7 +28,6 @@ namespace Schronisko.Views.Tekstowy
                     "Zwierzęta do adopcji",
                     "Informacje o schronisku",
                     "Darowizna",
-                    "Strona internetowa",
                     "Powrót",
                     "Zakończ przeglądanie"
                 };
@@ -46,7 +45,7 @@ namespace Schronisko.Views.Tekstowy
                 menuGlowne.MenuGlowneOpis(wybor, widokTekstowy, app);
                 if (wybor == "Powrót")
                 {
-                    break; // Powrót do logowania
+                    break; 
                 }
             }
         }
@@ -57,7 +56,6 @@ namespace Schronisko.Views.Tekstowy
                 //4 osoby na dzień zmiana dzienna i wieczorna po 2 na zmiane
                 "Dodaj Dzień Pracy",
                 "Wyloguj",
-                "Strona internetowa",
                 "Zakończ przeglądanie"
             };
             while (true)
@@ -90,7 +88,6 @@ namespace Schronisko.Views.Tekstowy
                 "Edytuj Wolontariusza",
                 "Usuń Wolontariusza",
                 "Wyloguj",
-                "Strona internetowa",
                 "Zakończ przeglądanie"
             };
             while (true)
