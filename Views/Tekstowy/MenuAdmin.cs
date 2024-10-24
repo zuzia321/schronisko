@@ -48,15 +48,24 @@ namespace Schronisko.Views.Tekstowy
             else if (choice == "Dodaj Wolontariusza")
             {
                 string plik = "volounteers.txt";
-                var wszystkieLinie = File.ReadAllLines(plik).ToList();
-                for(int i=0; i<wszystkieLinie.Count;i++)
+                var linie = File.ReadAllLines(plik).ToList();
+
+                for(int i=0; i<linie.Count;i++)
                 {
-                   /* if ([10]=="oczekujący")
+                    var linia = linie[i].Split(';');
+                    Console.WriteLine(linia.Count());
+                    if (linia[8]=="oczekujący")
                     {
-                        = "akceptacja";
-                        WolontariuszController.Id = i;
-                    }*/
+                        linia[8]= "akceptacja";
+                        linie[i] = string.Join(';',linia);
+                        linie[i] = linie[i] + $";{i + 1}";
+                    }
                 }
+                File.WriteAllLines(plik, linie);
+
+                Console.WriteLine("Numer ID dodany na końcu każdej linii.");
+                AnsiConsole.WriteLine("\n\nNaciśnij dowolny klawisz, aby kontynuować...");
+                Console.ReadKey();
             }
             else if (choice == "Edytuj Wolontariusza")
             {

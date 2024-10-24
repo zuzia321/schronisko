@@ -18,13 +18,22 @@ namespace Schronisko.Models
             // Dynamicznie ustawiamy wartość właściwości obiektu za pomocą refleksji
             UstawWlasciwosc(model, nazwaWlasciwosci, daneUzytkownika);
 
-            // Walidujemy obiekt
-            var kontekstWalidacji = new ValidationContext(model);
+            // Walidujemy tylko wybraną właściwość, a nie cały model
+            var kontekstWalidacji = new ValidationContext(model)
+            {
+                MemberName = nazwaWlasciwosci
+            };
             var wynikiWalidacji = new List<ValidationResult>();
-            bool czyDaneSąPoprawne = Validator.TryValidateObject(model, kontekstWalidacji, wynikiWalidacji, true);
+            PropertyInfo wlasciwoscInfo = model.GetType().GetProperty(nazwaWlasciwosci);
+
+            bool czyDaneSaPoprawne = Validator.TryValidateProperty(
+                wlasciwoscInfo.GetValue(model),
+                kontekstWalidacji,
+                wynikiWalidacji
+            );
 
             // Jeśli walidacja się nie powiodła, wyświetlamy błędy i ponownie prosimy o dane
-            if (!czyDaneSąPoprawne)
+            if (!czyDaneSaPoprawne)
             {
                 foreach (var wynikWalidacji in wynikiWalidacji)
                 {
@@ -46,7 +55,7 @@ namespace Schronisko.Models
 
                 if (wlasciwoscInfo != null)
                 {
-                    if (wlasciwoscInfo.PropertyType == typeof(int))
+                    /*if (wlasciwoscInfo.PropertyType == typeof(int))
                     {
                         if (int.TryParse(wartosc, out int wartoscInt))
                             wlasciwoscInfo.SetValue(model, wartoscInt);
@@ -62,7 +71,6 @@ namespace Schronisko.Models
                     }
                     else if (wlasciwoscInfo.PropertyType == typeof(DateTime))
                     {
-                        Console.WriteLine($"Próba konwersji wartości: '{wartosc}' na DateTime");
                         if (DateTime.TryParse(wartosc, out DateTime wartoscData))
                         {
                             wlasciwoscInfo.SetValue(model, wartoscData);
@@ -79,7 +87,7 @@ namespace Schronisko.Models
                         else
                             Console.WriteLine("Wartość musi być prawdą lub fałszem.");
                     }
-                    else
+                    else*/
                         wlasciwoscInfo.SetValue(model, wartosc);
                 }
                 else
@@ -91,6 +99,4 @@ namespace Schronisko.Models
             }
         }
     }
-    
-
 }

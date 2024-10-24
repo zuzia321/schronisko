@@ -1,12 +1,12 @@
 ﻿using Schronisko.Controllers;
 using Spectre.Console;
-
+using Schronisko.Models;
 namespace Schronisko.Views.Tekstowy
 {
     public class MenuGlowne
     {
         private Zwierzeta _zwierzeta = new Zwierzeta();
-        
+        static ZwierzetaFunkcje _zwierzetaFunkcje = new ZwierzetaFunkcje();
         public void MenuGlowneOpis(string choice, WidokTekstowy widokTekstowy, WebApplication app)
         {
 
@@ -21,6 +21,7 @@ namespace Schronisko.Views.Tekstowy
             else if (choice == "Zwierzęta do adopcji")
             {
                 AnsiConsole.Markup("[Deeppink1]ZWIERZĘTA[/]\n");
+                //_zwierzetaFunkcje.FiltrowanieSortowanieZwierza(_zwierzeta,null,null,null,null);
                 _zwierzeta.WyswietlZwierzeta(widokTekstowy);
             }
             else if (choice == "Informacje o schronisku")

@@ -2,10 +2,6 @@ C:\studia\mvc\Schronisko\bin\Debug\net8.0\appsettings.Development.json
 C:\studia\mvc\Schronisko\bin\Debug\net8.0\appsettings.json
 C:\studia\mvc\Schronisko\bin\Debug\net8.0\Schronisko.staticwebassets.runtime.json
 C:\studia\mvc\Schronisko\bin\Debug\net8.0\Schronisko.exe
-C:\studia\mvc\Schronisko\bin\Debug\net8.0\Schronisko.deps.json
-C:\studia\mvc\Schronisko\bin\Debug\net8.0\Schronisko.runtimeconfig.json
-C:\studia\mvc\Schronisko\bin\Debug\net8.0\Schronisko.dll
-C:\studia\mvc\Schronisko\bin\Debug\net8.0\Schronisko.pdb
 C:\studia\mvc\Schronisko\bin\Debug\net8.0\Humanizer.dll
 C:\studia\mvc\Schronisko\bin\Debug\net8.0\Microsoft.AspNetCore.Razor.Language.dll
 C:\studia\mvc\Schronisko\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
@@ -232,5 +228,9 @@ C:\studia\mvc\Schronisko\obj\Debug\net8.0\Schronisko.csproj.Up2Date
 C:\studia\mvc\Schronisko\obj\Debug\net8.0\Schronisko.dll
 C:\studia\mvc\Schronisko\obj\Debug\net8.0\refint\Schronisko.dll
 C:\studia\mvc\Schronisko\obj\Debug\net8.0\Schronisko.pdb
+C:\studia\mvc\Schronisko\bin\Debug\net8.0\Schronisko.deps.json
+C:\studia\mvc\Schronisko\bin\Debug\net8.0\Schronisko.runtimeconfig.json
+C:\studia\mvc\Schronisko\bin\Debug\net8.0\Schronisko.dll
+C:\studia\mvc\Schronisko\bin\Debug\net8.0\Schronisko.pdb
 C:\studia\mvc\Schronisko\obj\Debug\net8.0\Schronisko.genruntimeconfig.cache
 C:\studia\mvc\Schronisko\obj\Debug\net8.0\ref\Schronisko.dll

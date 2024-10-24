@@ -5,3 +5,4 @@ Precel;4;02.10.2024;pies;hart;Adopted;nieśmiały
 Jogurt;2/12;21.10.2024;kot;czarno-biały;ToAdopt;ślepy
 Rudy;8;2024-10-03;pies;spaniel;Adopted;piekny, lagodny, lubi dzieci
 Tuptuś;1;2024-10-20;chomik;dżungalski;Adopted;malutki, reumatyzm
+mat;1;01.01.2024;pies;pies;tak;siemanko

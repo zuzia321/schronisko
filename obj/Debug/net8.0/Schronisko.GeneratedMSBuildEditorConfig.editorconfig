@@ -26,6 +26,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\studia\mvc\Schronisko
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/studia/mvc/Schronisko/Views/Adopcja/Adopt.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRvcGNqYVxBZG9wdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/studia/mvc/Schronisko/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

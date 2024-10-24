@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using Schronisko.Views.Tekstowy;
 using Schronisko.Controllers;
 using Spectre.Console;
+using Schronisko.Models;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,9 @@ builder.Services.AddSingleton<MenuGlowne>();
 builder.Services.AddSingleton<MenuAdmin>();
 builder.Services.AddSingleton<MenuWolontariusz>();
 builder.Services.AddSingleton<Logowanie>();
+builder.Services.AddSingleton<MenuKalendarz>();
+
+//builder.Services.AddScoped<poprawnodcOgrod>();
 
 var app = builder.Build();
 

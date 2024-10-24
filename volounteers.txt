@@ -1,0 +1,7 @@
+Maria;02.09.2003 00:00:00;123456789;m.k@gmail.com;True;Kocham zwierzęta;Poniedziałek;False;akceptacja;1
+Zuzia;08.08.2020 00:00:00;987654321;beaver@gmail.com;True;lubi zwierza;99%;True;akceptacja;2
+Grażyna;30.09.2024 00:00:00;098765443;g@onet.pl;False;kocha papugi;Środa;False;akceptacja;3
+Karol;01.07.2015;897654321;k.k@gmail.com;True;boi się ptakow;czwartek;true;akceptacja;4
+
+Pola;08.06.2017 00:00:00;091287364;pl@gmail.com;False;uwielbia owocowe czwartki;Czwartek;True;oczekujący
+aaa;09.09.2020 00:00:00;123456789;a@a;False;a;a;False;oczekujący

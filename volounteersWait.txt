@@ -1,0 +1,4 @@
+Maria;02.09.2003 00:00:00;123456789;m.k@gmail.com;True;Kocham zwierzęta;Poniedziałek;False;oczekujący
+Zuzia;08.08.2020 00:00:00;987654321;beaver@gmail.com;True;lubi zwierza;99%;True;oczekujący
+Grażyna;30.09.2024 00:00:00;098765443;g@onet.pl;False;kocha papugi;Środa;False;oczekujący
+Karol;01.07.2015;897654321;k.k@gmail.com;True;boi się ptakow;czwartek;true;oczekujący

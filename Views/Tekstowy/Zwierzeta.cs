@@ -4,7 +4,7 @@ namespace Schronisko.Views.Tekstowy
 {
     public class Zwierzeta
     {
-        public List<Zwierze> ListaZwierzat { get; private set; }=new List<Zwierze>();
+        public List<Zwierze> ListaZwierzat { get;  set; }=new List<Zwierze>();
 
         public void WyswietlZwierzeta(WidokTekstowy widokTekstowy)
         {
@@ -22,7 +22,7 @@ namespace Schronisko.Views.Tekstowy
                         {
                             Imie = linia[0].Trim(),
                             Wiek = linia[1].Trim(),
-                            OdKiedyWSchronisku = DateOnly.Parse(linia[2].Trim()),
+                           // OdKiedyWSchronisku = DateOnly.Parse(linia[2].Trim()),
                             RodzajZwierzecia = linia[3].Trim(),
                             Gatunek = linia[4].Trim(),
                             Stan = linia[5].Trim(),
@@ -37,6 +37,13 @@ namespace Schronisko.Views.Tekstowy
             else
             {
                 Console.WriteLine("Plik nie istnieje\n");
+            }
+        }
+        public void Wyswietl()
+        {
+            foreach (var zwierze in ListaZwierzat)
+            {
+                Console.WriteLine($"{zwierze.Imie}, {zwierze.Wiek}, {zwierze.Gatunek}");
             }
         }
         public void OpcjeZwierzeta(WidokTekstowy widokTekstowy)
@@ -79,7 +86,7 @@ namespace Schronisko.Views.Tekstowy
 
             if (wybranaOpcja == "Formularz adopcyjny")
             {
-                FormularzAdopcyjny(zwierzeDoPokazania);
+                FormularzAdopcyjny(zwierzeDoPokazania,widokTekstowy);
                 AnsiConsole.WriteLine("\n\nNaciśnij dowolny klawisz, aby kontynuować...");
                 Console.ReadKey();  
             }
@@ -88,10 +95,11 @@ namespace Schronisko.Views.Tekstowy
                 return;
             }
         }
-        private void FormularzAdopcyjny(Zwierze zwierze)
+        private void FormularzAdopcyjny(Zwierze zwierze,WidokTekstowy widokTekstowy)
         {
             Console.Clear();
             AnsiConsole.Markup($"[DeepPink3_1]Formularz adopcyjny dla: {zwierze.Imie}[/]\n");
+            widokTekstowy.stworzAdopcje();
         }
 
     }

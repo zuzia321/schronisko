@@ -11,13 +11,16 @@ namespace Schronisko.Views.Tekstowy
         private readonly MenuGlowne menuGlowne;
         private readonly MenuAdmin menuAdmin;
         private readonly MenuWolontariusz menuWolontariusz;
+        private readonly MenuKalendarz menuKalendarz;
 
-        public Menu(WidokTekstowy _widokTekstowy, MenuGlowne _menuGlowne, MenuAdmin _menuAdmin, MenuWolontariusz _menuWolontariusz)
+        public Menu(WidokTekstowy _widokTekstowy, MenuGlowne _menuGlowne, MenuAdmin _menuAdmin, MenuWolontariusz _menuWolontariusz, MenuKalendarz _menuKalendarz)
         {
             widokTekstowy = _widokTekstowy;
             menuGlowne = _menuGlowne;
             menuAdmin = _menuAdmin;
             menuWolontariusz = _menuWolontariusz;
+            menuKalendarz = _menuKalendarz;
+            this.menuKalendarz = menuKalendarz;
         }
 
         public void OpcjeGlowne(WebApplication app)
@@ -55,6 +58,7 @@ namespace Schronisko.Views.Tekstowy
             {
                 //4 osoby na dzień zmiana dzienna i wieczorna po 2 na zmiane
                 "Dodaj Dzień Pracy",
+                "Wyświetl Kalendarz",
                 "Wyloguj",
                 "Zakończ przeglądanie"
             };
@@ -69,7 +73,7 @@ namespace Schronisko.Views.Tekstowy
                             .AddChoices(options)
                             .HighlightStyle(new Style(foreground: Color.DeepPink3_1, background: Color.Pink1)));
 
-                menuWolontariusz.MenuWolontariuszOpis(wybor, widokTekstowy, app);
+                menuWolontariusz.MenuWolontariuszOpis(wybor, widokTekstowy, app,menuKalendarz);
                 if (wybor == "Wyloguj")
                 {
                     break; // Powrót do logowania

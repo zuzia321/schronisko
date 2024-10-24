@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Schronisko.Models
 {
@@ -28,13 +29,35 @@ namespace Schronisko.Models
         [EmailAddress(ErrorMessage = "Podaj poprawny adres email (musi zawierać @).")]
         public string Email { get; set; }
         
-        public bool Miasto { get; set; }
+        public string Miasto { get; set; }
         public string ?Opis { get; set; }
-        public bool Doswiadczenie { get; set; }
+        public string Doswiadczenie { get; set; }
         public string ?Dyspozycyjnosc {  get; set; }
         public string Stan { get; set; } = "oczekujący";
 
-
-        //public void index()
+    }
+    public class poprawnoscWolontariusza()
+    {
+        public bool poprawnoscDoswiadczenie(string doswiadczenie)
+        {
+            if (doswiadczenie == "tak" || doswiadczenie == "nie")
+                return true;
+            return false;
+        }
+        public bool poprawnoscMiasto(string miasto)
+        {
+            if (miasto == "tak" || miasto == "nie")
+                return true;
+            return false;
+        }
+        public bool wiek(DateTime dataUrodzenia)
+        {
+            int wiek = DateTime.Now.Year - dataUrodzenia.Year;
+            // Sprawdzenie, czy osoba już miała urodziny w bieżącym roku
+            if (dataUrodzenia > DateTime.Now.AddYears(-wiek))
+                wiek--;
+            // Sprawdzenie, czy wiek wynosi co najmniej 18 lat
+            return wiek >= 18;
+        }
     }
 }

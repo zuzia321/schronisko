@@ -1,0 +1,73 @@
+﻿@model Schronisko.Models.Adopcja
+
+@{
+    ViewData["Title"] = "Adopt";
+}
+
+<h1>Adopcja</h1>
+
+<h4>Adopcja</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Adopt">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Imie" class="control-label"></label>
+                <input asp-for="Imie" class="form-control" />
+                <span asp-validation-for="Imie" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nazwisko" class="control-label"></label>
+                <input asp-for="Nazwisko" class="form-control" />
+                <span asp-validation-for="Nazwisko" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Telefon" class="control-label"></label>
+                <input asp-for="Telefon" class="form-control" />
+                <span asp-validation-for="Telefon" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TypMieszkania" class="control-label"></label>
+                <input asp-for="TypMieszkania" class="form-control" />
+                <span asp-validation-for="TypMieszkania" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Ogrod" /> @Html.DisplayNameFor(model => model.Ogrod)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="IloscOsob" class="control-label"></label>
+                <input asp-for="IloscOsob" class="form-control" />
+                <span asp-validation-for="IloscOsob" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Doswiadczenie" /> @Html.DisplayNameFor(model => model.Doswiadczenie)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="AktualneZwierzeta" class="control-label"></label>
+                <input asp-for="AktualneZwierzeta" class="form-control" />
+                <span asp-validation-for="AktualneZwierzeta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
