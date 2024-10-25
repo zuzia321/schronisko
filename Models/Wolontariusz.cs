@@ -30,10 +30,15 @@ namespace Schronisko.Models
         public string Email { get; set; }
         
         public string Miasto { get; set; }
+
+        [Display(Name ="Podaj swoje zainteresowania: ")]
         public string ?Opis { get; set; }
+
         public string Doswiadczenie { get; set; }
-        public string ?Dyspozycyjnosc {  get; set; }
         public string Stan { get; set; } = "oczekujący";
+
+        [Required(ErrorMessage ="Haslo jest wymagane")]
+        public string Haslo { get; set; }
 
     }
     public class poprawnoscWolontariusza()

@@ -14,7 +14,8 @@ namespace Schronisko.Views.Tekstowy
             {
                 AnsiConsole.Markup("[Deeppink1]FORMULARZ[/]\n");
                 var wolontariuszController = new WolontariuszController(widokTekstowy);
-                wolontariuszController.StworzIWyswietlWolontariusza();
+                int pom = 0;
+                wolontariuszController.StworzIWyswietlWolontariusza(pom);
                 AnsiConsole.WriteLine("\n\nNaciśnij dowolny klawisz, aby kontynuować...");
                 Console.ReadKey(); 
             }
@@ -54,9 +55,7 @@ namespace Schronisko.Views.Tekstowy
             {
                 AnsiConsole.Markup("[bold red]KONIEC...[/]\n");
                 Environment.Exit(0);
-            }
-           // AnsiConsole.WriteLine("\n\nNaciśnij dowolny klawisz, aby kontynuować...");
-            //Console.ReadKey();    
+            }  
         }
     }
 }

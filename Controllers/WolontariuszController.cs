@@ -26,7 +26,7 @@ namespace Schronisko.Controllers
             ViewBag.Message = wolontariusz.Imie + " " + wolontariusz.Nazwisko+" "+index;
            // Console.WriteLine($"{wolontariusz.Imie}");
 
-            string daneWolontariusz = $"\n{wolontariusz.Imie};{wolontariusz.DataUrodzenia};{wolontariusz.Telefon};{wolontariusz.Email};{wolontariusz.Miasto};{wolontariusz.Opis};{wolontariusz.Dyspozycyjnosc};{wolontariusz.Doswiadczenie};{wolontariusz.Stan}";
+            string daneWolontariusz = $"\n{wolontariusz.Imie};{wolontariusz.Nazwisko};{wolontariusz.DataUrodzenia};{wolontariusz.Telefon};{wolontariusz.Email};{wolontariusz.Miasto};{wolontariusz.Opis};{wolontariusz.Doswiadczenie};{wolontariusz.Stan}";
             System.IO.File.AppendAllText(plik, daneWolontariusz);
 
             return View();
@@ -39,10 +39,11 @@ namespace Schronisko.Controllers
         {
             widokTekstowy = _widokTekstowy;
         }
-        public void StworzIWyswietlWolontariusza()
+        public void StworzIWyswietlWolontariusza(int pom)
         {
-            Wolontariusz nowyWolontariusz = widokTekstowy.stworzWolontariusza();
-            widokTekstowy.WyswietlWolontariusza(nowyWolontariusz);
+            Wolontariusz nowyWolontariusz = widokTekstowy.stworzWolontariusza(ref pom);
+            if(pom== 0) 
+                widokTekstowy.WyswietlWolontariusza(nowyWolontariusz);
         }
     }
 }

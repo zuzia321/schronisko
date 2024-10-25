@@ -8,27 +8,10 @@ namespace Schronisko.Views.Tekstowy
     {
         private readonly string plikW = "volounteers.txt";
         private readonly string plikWo = "volounteersWait.txt";
-        public void DodajWolontariusza(Wolontariusz wolontariusz)
-        {
-            //plik z oczekujacymi i plik z zaakceptowanymi gdzie sa rowniez id
-            //wyswietlic oczekujacych wolontariuszy
-            //wybrac wolontariusza
-            //zmienic stan 
-            //dopisac id wedlug miejsca w pliku
-            /*string wolontariuszDoAkceptu = Console.ReadLine();
-            var wszystkieLinie = File.ReadAllLines(plikWo).ToList();
-            wszystkieLinie.RemoveAll(l => l.Contains()); // Usunięcie linii zawierających określone imię
-            File.WriteAllLines(plik, wszystkieLinie);
-            string daneWolontariusza = $"\n{wolontariusz.Imie};{wolontariusz.DataUrodzenia};{wolontariusz.Telefon};{wolontariusz.Email};{wolontariusz.Miasto};{wolontariusz.Opis};{wolontariusz.Doswiadczenie};{wolontariusz.Dyspozycyjnosc}";
-            wolontariusz.Stan = "zaakceptowany";
-            File.AppendAllText(plikW, daneWolontariusza);*/
-
-        }
         public void MenuAdminOpis(string choice, WidokTekstowy widokTekstowy, WebApplication app)
         {
             if (choice == "Dodaj Zwierzaka")
             {
-                //formularz zwierząt
                 var zwierzeController = new ZwierzeController(widokTekstowy);
                 zwierzeController.StworzIWyswietlZwierze();
             }
@@ -54,16 +37,15 @@ namespace Schronisko.Views.Tekstowy
                 {
                     var linia = linie[i].Split(';');
                     Console.WriteLine(linia.Count());
-                    if (linia[8]=="oczekujący")
+                    if (linia.Length == 10 && linia[8] == "oczekujący")
                     {
-                        linia[8]= "akceptacja";
-                        linie[i] = string.Join(';',linia);
-                        linie[i] = linie[i] + $";{i + 1}";
+                        linia[8] = "akceptacja";
+                        linie[i] = string.Join(';', linia) + $";{i + 1}";
                     }
                 }
                 File.WriteAllLines(plik, linie);
 
-                Console.WriteLine("Numer ID dodany na końcu każdej linii.");
+                Console.WriteLine("Zaakceptowano wszystkich wolontariuszy");
                 AnsiConsole.WriteLine("\n\nNaciśnij dowolny klawisz, aby kontynuować...");
                 Console.ReadKey();
             }

@@ -2,38 +2,104 @@
 using Spectre.Console;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Schronisko.Views.Tekstowy
 {
     public class MenuKalendarz
     {
         private List<(DateTime, string)> dniPracy = new List<(DateTime, string)>();
-        private const int MaxWydarzeniaNaDzien = 4; // Maksymalna liczba wydarzeń na dzień
+        private const int MaxOsob = 4;
+        private const string plik = "Calendar.txt";
 
-        public void DodajDzieńPracy(DateTime data, string opis)
+        public MenuKalendarz()
         {
-            opis= char.ToUpper(opis[0]) + opis.Substring(1).ToLower();
-            dniPracy.Add((data, opis));
-            Console.WriteLine($"\n{data:yyyy-MM-dd}, {opis} - Dzień pracy został dodany.");
+            Wczytaj(); // Wczytaj wydarzenia z pliku podczas inicjalizacji
         }
 
-        public void WyswietlKalendarz()
+        // Metoda do zapisywania wydarzeń do pliku
+        public void Zapisz()
         {
-            int rok = AnsiConsole.Ask<int>("Podaj rok:");
-            int miesiac = AnsiConsole.Ask<int>("Podaj miesiąc:");
-
-            WybierzDate(rok, miesiac);
+            using (var writer = new StreamWriter(plik))
+            {
+                foreach (var (data,nazwa) in dniPracy)
+                {
+                    writer.WriteLine($"{data:yyyy-MM-dd};{nazwa}");
+                }
+            }
         }
 
-        public void WybierzDate(int rok, int miesiac, int wybranyDzien = 1)
+        // Metoda do wczytywania wydarzeń z pliku
+        public void Wczytaj()
+        {
+            if (File.Exists(plik))
+            {
+                using (var reader = new StreamReader(plik))
+                {
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        var parts = line.Split(';');
+                        if (parts.Length == 2 &&
+                            DateTime.TryParse(parts[0], out DateTime data))
+                        {
+                            dniPracy.Add((data, parts[1]));
+                        }
+                    }
+                }
+            }
+        }
+
+
+        public void DodajDzien(DateTime data,string nazwa)
+        {
+            bool wpisany = false;
+            foreach (var dzien in dniPracy)
+            {
+                if (dzien.Item1 == data) 
+                {
+                    if (dzien.Item2 == nazwa) 
+                    {
+                        wpisany = true;
+                        break;
+                    }
+                }
+            }
+            if (wpisany)
+                AnsiConsole.Markup($"\n[#FF0000]{nazwa} już pracujesz w ten dzień !!![/]\n".ToUpper());
+            else
+            {
+                dniPracy.Add((data, nazwa));
+                Console.WriteLine($"\n{data:yyyy-MM-dd}, {nazwa} - Dzień pracy został dodany.");
+                Zapisz();
+            }
+        }
+
+        public void WyswietlKalendarz(string nazwa)
+        {
+            while (true)
+            {
+                int rok = AnsiConsole.Ask<int>("Podaj rok:");
+                int miesiac = AnsiConsole.Ask<int>("Podaj miesiąc:");
+                if (rok > DateTime.Now.Year || (rok == DateTime.Now.Year && miesiac >= DateTime.Now.Month))
+                {
+                    WybierzDate(rok, miesiac, nazwa);
+                    break;
+                }
+                else
+                    AnsiConsole.Markup("[#FF0000]Nie cofamy sie do przeszłości kolego[/]\n");
+            }
+        }
+
+        public void WybierzDate(int rok, int miesiac, string nazwa,int wybranyDzien = 1)
         {
             int dniWMiesiacu = DateTime.DaysInMonth(rok, miesiac);
 
             while (true)
             {
                 Console.Clear();
-                var kalendarz = new Calendar(rok, miesiac);
-
+                var kalendarz = new Spectre.Console.Calendar(rok, miesiac);
+                kalendarz.Culture("pl-PL");
                 // Dodajemy wydarzenia z listy dni pracy, które pasują do wybranego miesiąca
                 foreach (var (data, opis) in dniPracy)
                 {
@@ -52,9 +118,7 @@ namespace Schronisko.Views.Tekstowy
                 // Wyświetlamy wydarzenia dla wybranego dnia
                 var wydarzenia = dniPracy.FindAll(wydarzenie => wydarzenie.Item1.Year == rok && wydarzenie.Item1.Month == miesiac && wydarzenie.Item1.Day == wybranyDzien);
 
-                // Zmieniamy kolor na czerwony, jeśli liczba wydarzeń wynosi 4
-                string kolorWydarzenia = wydarzenia.Count >= MaxWydarzeniaNaDzien ? "magenta" : "white";
-                
+                string kolorWydarzenia = wydarzenia.Count >= MaxOsob ? "magenta" : "white";
 
                 if (wydarzenia.Count > 0)
                 {
@@ -63,16 +127,6 @@ namespace Schronisko.Views.Tekstowy
                     {
                         AnsiConsole.MarkupLine($"- [{kolorWydarzenia}]{w.Item2}[/]");
                     }
-                   /* AnsiConsole.MarkupLine($"[bold]Grafik na {wybranyDzien}.{miesiac}:[/]");
-
-                    foreach (var w in wydarzenia)
-                    {
-                        var kolorTla = wydarzenia.Count >= MaxWydarzeniaNaDzien ? "magenta" : "white"; // Tło magenta, jeśli max osiągnięty
-                        var kolorTekstu = wydarzenia.Count >= MaxWydarzeniaNaDzien ? "white" : "black"; // Biały tekst na magencie
-
-                        // Użycie stylu do zmiany tła i koloru tekstu
-                        AnsiConsole.MarkupLine($"[{kolorTekstu} on {kolorTla}] - {w.Item2}[/]");
-                    }*/
                 }
                 else
                 {
@@ -107,21 +161,22 @@ namespace Schronisko.Views.Tekstowy
                 }
                 else if (key.Key == ConsoleKey.Enter) // Dodawanie dnia pracy po naciśnięciu Enter
                 {
-                    DodajDzienPracy(wybranyDzien, rok, miesiac);
+                    DodajDzienPracy(wybranyDzien, rok, miesiac,nazwa);
                 }
             }
         }
 
-        private void DodajDzienPracy(int wybranyDzien, int rok, int miesiac)
+        private void DodajDzienPracy(int wybranyDzien, int rok, int miesiac,string nazwa)
         {
             var data = new DateTime(rok, miesiac, wybranyDzien);
 
             // Sprawdzenie, czy można dodać nowe wydarzenie
             var wydarzenia = dniPracy.FindAll(wydarzenie => wydarzenie.Item1.Year == rok && wydarzenie.Item1.Month == miesiac && wydarzenie.Item1.Day == wybranyDzien);
-            if (wydarzenia.Count >= MaxWydarzeniaNaDzien)
+            
+            if (wydarzenia.Count >= MaxOsob)
             {
-                AnsiConsole.MarkupLine("[red]Limit wydarzeń na ten dzień został osiągnięty![/]");
-                AnsiConsole.MarkupLine("[blue]Naciśnij dowolny klawisz, aby wrócić do kalendarza...[/]");
+                AnsiConsole.MarkupLine("[#FF0000]Limit wydarzeń na ten dzień został osiągnięty![/]");
+                AnsiConsole.MarkupLine("\nNaciśnij dowolny klawisz, aby wrócić do kalendarza...");
                 Console.ReadKey();
                 return;
             }
@@ -129,36 +184,10 @@ namespace Schronisko.Views.Tekstowy
             // Prośba o opis wydarzenia
             Console.Clear();
             AnsiConsole.MarkupLine($"Dodaj dzień pracy dla {data:yyyy-MM-dd}:");
-            string opis = AnsiConsole.Ask<string>("Podaj opis dnia pracy:");
-            DodajDzieńPracy(data, opis);
+            DodajDzien(data, nazwa);
 
             AnsiConsole.MarkupLine("\nNaciśnij dowolny klawisz, aby wrócić do kalendarza...");
             Console.ReadKey();
         }
-
-        // Metoda wyświetlająca dni pracy dla konkretnej daty
-      /*  private void PokazDniPracy(DateTime data)
-        {
-            AnsiConsole.Clear();
-            AnsiConsole.MarkupLine($"[bold green]Dni pracy dla daty {data:yyyy-MM-dd}:[/]");
-            bool found = false;
-
-            foreach (var (dzien, opis) in dniPracy)
-            {
-                if (dzien.Date == data.Date)
-                {
-                    AnsiConsole.MarkupLine($"- [yellow]{dzien:yyyy-MM-dd}[/]: {opis}");
-                    found = true;
-                }
-            }
-
-            if (!found)
-            {
-                AnsiConsole.MarkupLine("[red]Brak dni pracy dla tej daty.[/]");
-            }
-
-            AnsiConsole.MarkupLine("[bold blue]Naciśnij dowolny klawisz, aby wrócić...[/]");
-            Console.ReadKey();
-        }*/
     }
 }

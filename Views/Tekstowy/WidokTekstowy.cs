@@ -1,5 +1,6 @@
 ﻿using Schronisko.Models;
 using Spectre.Console;
+using System.Drawing.Drawing2D;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 
@@ -11,7 +12,7 @@ namespace Schronisko.Views.Tekstowy
         private readonly poprawnoscZwierze poprawnoscZwierze = new poprawnoscZwierze();
         private readonly poprawnoscWolontariusza poprawnoscW=new poprawnoscWolontariusza();
         private readonly string plikW = "volounteers.txt";
-        public Wolontariusz stworzWolontariusza()
+        public Wolontariusz stworzWolontariusza(ref int pom)
         {
             Wolontariusz wolontariusz =new Wolontariusz();
 
@@ -25,12 +26,12 @@ namespace Schronisko.Views.Tekstowy
             wolontariusz.DataUrodzenia = DateTime.Parse(Console.ReadLine());
             if(!poprawnoscW.wiek(wolontariusz.DataUrodzenia))
             {
-                Console.WriteLine("Nie możesz byc wolontariuszem. Nie masz 18 lat");
+                Console.WriteLine("Nie możesz być wolontariuszem. Nie masz 18 lat");
                 Console.WriteLine("Czy chcesz wrócić do menu? (tak/nie): ");
                 string wybor = Console.ReadLine()?.ToLower();
                 if (wybor == "tak")
                 {
-                    // Przerywamy rejestrację i wracamy do poprzedniego menu
+                    pom = 1;
                     return null;
                 }
                 else 
@@ -49,7 +50,7 @@ namespace Schronisko.Views.Tekstowy
                 wolontariusz.Miasto = Console.ReadLine();
             }
 
-            wolontariusz.Opis = Validation.PobierzPoprawneDane("Podaj opis:", wolontariusz, nameof(wolontariusz.Opis));
+            wolontariusz.Opis = Validation.PobierzPoprawneDane("Podaj swoje zainteresowania:", wolontariusz, nameof(wolontariusz.Opis));
 
             Console.Write("Czy posiadasz doświadczenie ze zwierzętami (tak/nie): ");
             wolontariusz.Doswiadczenie = Console.ReadLine();
@@ -60,18 +61,19 @@ namespace Schronisko.Views.Tekstowy
                 wolontariusz.Doswiadczenie = Console.ReadLine();
             }
 
-            wolontariusz.Dyspozycyjnosc = Validation.PobierzPoprawneDane("Podaj dyspozycyjność:", wolontariusz, nameof(wolontariusz.Dyspozycyjnosc));
+            wolontariusz.Haslo = Validation.PobierzPoprawneDane("Podaj hasło: ", wolontariusz, nameof(wolontariusz.Haslo));
 
             //string daneWolontariusz = $"\n{wolontariusz.Imie};{wolontariusz.DataUrodzenia};{wolontariusz.Telefon};{wolontariusz.Email}";
-            string daneWolontariusz = $"\n{wolontariusz.Imie};{wolontariusz.DataUrodzenia};{wolontariusz.Telefon};{wolontariusz.Email};{wolontariusz.Miasto};{wolontariusz.Opis};{wolontariusz.Dyspozycyjnosc};{wolontariusz.Doswiadczenie};{wolontariusz.Stan}";
+            string daneWolontariusz = $"{wolontariusz.Imie};{wolontariusz.Nazwisko};{wolontariusz.DataUrodzenia};{wolontariusz.Telefon};{wolontariusz.Email};{wolontariusz.Miasto};{wolontariusz.Opis};{wolontariusz.Doswiadczenie};{wolontariusz.Stan};{wolontariusz.Haslo}";
             File.AppendAllText(plikW, daneWolontariusz);
-           
+
             return wolontariusz;
-
         }
-
         public void WyswietlWolontariusza(Wolontariusz wolontariusz)
         {
+            Console.Clear();
+            int index = File.ReadAllLines("volounteers.txt").Length;
+            AnsiConsole.Markup($"[Deeppink1]Twoj wygenerowany indeks do logowania:[bold] {index}[/][/] ");
             Console.WriteLine("\nDane wolontariusza:");
             Console.WriteLine($"Imię: {wolontariusz.Imie}");
             Console.WriteLine($"Nazwisko: {wolontariusz.Nazwisko}");
@@ -79,12 +81,10 @@ namespace Schronisko.Views.Tekstowy
             Console.WriteLine($"Telefon: {wolontariusz.Telefon}");
             Console.WriteLine($"Email: {wolontariusz.Email}");
             Console.WriteLine($"Mieszka w mieście: {wolontariusz.Miasto}");
-            Console.WriteLine($"Opis: {wolontariusz.Opis}");
+            Console.WriteLine($"Zainteresowania: {wolontariusz.Opis}");
             Console.WriteLine($"Doświadczenie: {wolontariusz.Doswiadczenie}");
-            Console.WriteLine($"Dyspozycyjność: {wolontariusz.Dyspozycyjnosc}");
             AnsiConsole.Markup($"[red]{wolontariusz.Stan}[/]");
         }
-
 
         private readonly string plikZ = "Animals.txt";
         public Zwierze stworzZwierze()
@@ -142,7 +142,7 @@ namespace Schronisko.Views.Tekstowy
             Console.WriteLine($"Opis: {zwierze.Opis}");
         }
 
-        public Adopcja stworzAdopcje()
+        public Adopcja stworzAdopcje(ref int pom)
         {
             Adopcja adopcja = new Adopcja();
 
@@ -150,8 +150,31 @@ namespace Schronisko.Views.Tekstowy
 
             adopcja.Imie = Validation.PobierzPoprawneDane("Podaj imię:", adopcja, nameof(adopcja.Imie));
             adopcja.Nazwisko = Validation.PobierzPoprawneDane("Podaj nazwisko:", adopcja, nameof(adopcja.Nazwisko));
+
+            Console.Write("Podaj swój wiek: ");
+            adopcja.Wiek = Console.ReadLine();
+            if (!poprawnosc.poprawnoscWiek(adopcja.Wiek))
+            {
+                Console.WriteLine("Nie możesz adoptować zwierzęcia. Nie masz 18 lat. Porozmawiaj o tym z rodzicem. Jak się zgodzi prosimy rodzica o uzupelnienie formularza");
+                Console.WriteLine("Czy chcesz wrócić do menu? (tak/nie): ");
+                string wybor = Console.ReadLine()?.ToLower();
+                if (wybor == "tak")
+                {
+                    pom = 1;
+                    return null;
+                }
+                else
+                    Environment.Exit(0);
+            }
+
             adopcja.Telefon = Validation.PobierzPoprawneDane("Podaj numer telefonu:", adopcja, nameof(adopcja.Telefon));
             adopcja.Email = Validation.PobierzPoprawneDane("Podaj adres e-mail:", adopcja, nameof(adopcja.Email));
+            while(!poprawnosc.poprawnoscEmail(adopcja.Email))
+            {
+                Console.WriteLine("Podaj poprawny email. Nie istnieje taka domena maila");
+                Console.Write("Podaj adres e-mail: ");
+                adopcja.Email = Console.ReadLine();
+            }
           
             Console.Write("Podaj gdzie mieszkasz (dom/mieszkanie) : ");
             adopcja.TypMieszkania = Console.ReadLine();

@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Dodanie us³ug MVC (controllers with views)
 builder.Services.AddControllersWithViews();
 
-// Rejestracja us³ugi WidokTekstowy, aby mog³a byæ wstrzykniêta do kontrolera
+// Rejestracja us³ugi nazwa, aby mog³a byæ wstrzykniêta do kontrolera
 builder.Services.AddSingleton<WidokTekstowy>();
 builder.Services.AddSingleton<Menu>();
 builder.Services.AddSingleton<MenuGlowne>();
@@ -21,7 +21,6 @@ builder.Services.AddSingleton<MenuWolontariusz>();
 builder.Services.AddSingleton<Logowanie>();
 builder.Services.AddSingleton<MenuKalendarz>();
 
-//builder.Services.AddScoped<poprawnodcOgrod>();
 
 var app = builder.Build();
 

@@ -8,8 +8,8 @@ namespace Schronisko.Views.Tekstowy
 
         public void WyswietlZwierzeta(WidokTekstowy widokTekstowy)
         {
-            string plik = "Animals.txt";
             ListaZwierzat.Clear();
+            string plik = "Animals.txt";
             if (File.Exists(plik))
             {
                 var linie=File.ReadAllLines(plik);
@@ -22,84 +22,78 @@ namespace Schronisko.Views.Tekstowy
                         {
                             Imie = linia[0].Trim(),
                             Wiek = linia[1].Trim(),
-                           // OdKiedyWSchronisku = DateOnly.Parse(linia[2].Trim()),
+                            OdKiedyWSchronisku = DateOnly.Parse(linia[2].Trim()),
                             RodzajZwierzecia = linia[3].Trim(),
                             Gatunek = linia[4].Trim(),
                             Stan = linia[5].Trim(),
                             Opis = linia[6].Trim()
                         };
                         ListaZwierzat.Add(zwierze);
-                        //widokTekstowy.WyswietlZwierze(zwierze);
+                        widokTekstowy.WyswietlZwierze(zwierze);
                     }
                 }
                 OpcjeZwierzeta(widokTekstowy);
             }
             else
-            {
                 Console.WriteLine("Plik nie istnieje\n");
-            }
-        }
-        public void Wyswietl()
-        {
-            foreach (var zwierze in ListaZwierzat)
-            {
-                Console.WriteLine($"{zwierze.Imie}, {zwierze.Wiek}, {zwierze.Gatunek}");
-            }
         }
         public void OpcjeZwierzeta(WidokTekstowy widokTekstowy)
         {
-            var wybory = new List<string>();
-            foreach (var zwierze in ListaZwierzat)
+            bool kontynuuj = true;
+            while (kontynuuj)
             {
-                wybory.Add($"{zwierze.Imie}, {zwierze.Wiek}, {zwierze.Gatunek}");
-            }
-            Console.Clear();
-            var wybraneZwierze = AnsiConsole.Prompt(
-                new SelectionPrompt<string>()
-                    .Title("[Deeppink1]ZWIERZĘTA[/]\n \nWybierz zwierzę:")
-                    .HighlightStyle(new Style(foreground: Color.DeepPink3_1, background: Color.Pink1))
-                    //.PageSize(10) // Ustawienia dotyczące przewijania jezeli jest wiecej niz 10 elementow to lista bedzie sie przesuwac
-                    .AddChoices(wybory));
+                var wybory = new List<string>();
+                foreach (var zwierze in ListaZwierzat)
+                {
+                    wybory.Add($"{zwierze.Imie}, {zwierze.Wiek}, {zwierze.RodzajZwierzecia}");
+                }
+                wybory.Add("\nPowrót");
+                Console.Clear();
+                var wybraneZwierze = AnsiConsole.Prompt(
+                    new SelectionPrompt<string>()
+                        .Title("[Deeppink1]ZWIERZĘTA[/]\n \nWybierz zwierzę:")
+                        .HighlightStyle(new Style(foreground: Color.DeepPink3_1, background: Color.Pink1))
+                        //.PageSize(10) // Ustawienia dotyczące przewijania jezeli jest wiecej niz 10 elementow to lista bedzie sie przesuwac
+                        .AddChoices(wybory));
 
-            int id = wybory.IndexOf(wybraneZwierze);
-            var zwierzeDoPokazania = ListaZwierzat[id];
+                if (wybraneZwierze == "\nPowrót")
+                    return;
+                int id = wybory.IndexOf(wybraneZwierze);
+                var zwierzeDoPokazania = ListaZwierzat[id];
 
-            AnsiConsole.Markup($"[DeepPink3_1]{zwierzeDoPokazania.Imie.ToUpper()}[/]\n");
-            AnsiConsole.Markup($"Wiek: {zwierzeDoPokazania.Wiek}\n");
-            AnsiConsole.Markup($"W schronisku od: {zwierzeDoPokazania.OdKiedyWSchronisku}\n");
-            AnsiConsole.Markup($"Rodzaj: {zwierzeDoPokazania.RodzajZwierzecia}\n");
-            AnsiConsole.Markup($"Gatunek: {zwierzeDoPokazania.Gatunek}\n");
-            AnsiConsole.Markup($"Opis: {zwierzeDoPokazania.Opis}\n");
+                AnsiConsole.Markup($"[DeepPink3_1]{zwierzeDoPokazania.Imie.ToUpper()}[/]\n");
+                AnsiConsole.Markup($"Wiek: {zwierzeDoPokazania.Wiek}\n");
+                AnsiConsole.Markup($"W schronisku od: {zwierzeDoPokazania.OdKiedyWSchronisku}\n");
+                AnsiConsole.Markup($"Rodzaj: {zwierzeDoPokazania.RodzajZwierzecia}\n");
+                AnsiConsole.Markup($"Gatunek: {zwierzeDoPokazania.Gatunek}\n");
+                AnsiConsole.Markup($"Opis: {zwierzeDoPokazania.Opis}\n");
+                var opcje = new List<string>
+                {
+                    "Formularz adopcyjny",
+                    "Powrót"
+                };
+                var wybranaOpcja = AnsiConsole.Prompt(
+                    new SelectionPrompt<string>()
+                        .Title("Wybierz opcję:")
+                         .HighlightStyle(new Style(foreground: Color.DeepPink3_1, background: Color.Pink1))
+                        .AddChoices(opcje));
 
-
-            var opcje = new List<string> 
-            { 
-                "Formularz adopcyjny", 
-                "Powrót" 
-            };
-
-            var wybranaOpcja = AnsiConsole.Prompt(
-                new SelectionPrompt<string>()
-                    .Title("Wybierz opcję:")
-                     .HighlightStyle(new Style(foreground: Color.DeepPink3_1, background: Color.Pink1))
-                    .AddChoices(opcje));
-
-            if (wybranaOpcja == "Formularz adopcyjny")
-            {
-                FormularzAdopcyjny(zwierzeDoPokazania,widokTekstowy);
-                AnsiConsole.WriteLine("\n\nNaciśnij dowolny klawisz, aby kontynuować...");
-                Console.ReadKey();  
-            }
-            else if (wybranaOpcja == "Powrót")
-            {
-                return;
+                if (wybranaOpcja == "Formularz adopcyjny")
+                {
+                    FormularzAdopcyjny(zwierzeDoPokazania, widokTekstowy);
+                    AnsiConsole.WriteLine("\n\nNaciśnij dowolny klawisz, aby kontynuować...");
+                    Console.ReadKey();
+                }
+                else if (wybranaOpcja == "Powrót")
+                    continue;
             }
         }
         private void FormularzAdopcyjny(Zwierze zwierze,WidokTekstowy widokTekstowy)
         {
             Console.Clear();
             AnsiConsole.Markup($"[DeepPink3_1]Formularz adopcyjny dla: {zwierze.Imie}[/]\n");
-            widokTekstowy.stworzAdopcje();
+            int pom = 0;
+            widokTekstowy.stworzAdopcje(ref pom);
         }
 
     }

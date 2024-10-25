@@ -20,7 +20,7 @@ namespace Schronisko.Views.Tekstowy
             menuAdmin = _menuAdmin;
             menuWolontariusz = _menuWolontariusz;
             menuKalendarz = _menuKalendarz;
-            this.menuKalendarz = menuKalendarz;
+            menuKalendarz = _menuKalendarz;
         }
 
         public void OpcjeGlowne(WebApplication app)
@@ -52,12 +52,10 @@ namespace Schronisko.Views.Tekstowy
                 }
             }
         }
-        public void OpcjeWolontariusz(WidokTekstowy widokTekstowy, WebApplication app)
+        public void OpcjeWolontariusz(WidokTekstowy widokTekstowy, WebApplication app,string nazwa)
         {
             var options = new List<string>
             {
-                //4 osoby na dzień zmiana dzienna i wieczorna po 2 na zmiane
-                "Dodaj Dzień Pracy",
                 "Wyświetl Kalendarz",
                 "Wyloguj",
                 "Zakończ przeglądanie"
@@ -73,7 +71,7 @@ namespace Schronisko.Views.Tekstowy
                             .AddChoices(options)
                             .HighlightStyle(new Style(foreground: Color.DeepPink3_1, background: Color.Pink1)));
 
-                menuWolontariusz.MenuWolontariuszOpis(wybor, widokTekstowy, app,menuKalendarz);
+                menuWolontariusz.MenuWolontariuszOpis(wybor, widokTekstowy, app,menuKalendarz,nazwa);
                 if (wybor == "Wyloguj")
                 {
                     break; // Powrót do logowania

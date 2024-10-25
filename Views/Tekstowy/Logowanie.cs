@@ -1,4 +1,5 @@
-﻿using Spectre.Console;
+﻿using Schronisko.Models;
+using Spectre.Console;
 using System.Reflection.Emit;
 
 namespace Schronisko.Views.Tekstowy
@@ -12,89 +13,19 @@ namespace Schronisko.Views.Tekstowy
             menu = _menu;
             widokTekstowy = _widokTekstowy; 
         }
-       /* public void MenuLogowania(WebApplication app)
-        {
-            var opcje = new List<string>
-            {
-                //weryfikacja
-                "Gość",
-                "Wolontariusz",
-                "Administrator",
-                "Zakończ przeglądanie"
-            };
-            while (true)
-            {
-                AnsiConsole.Clear();
-
-                var font = FigletFont.Load("Small.flf");
-
-                AnsiConsole.Write(
-                    new FigletText(font, "FUTRZANA FERAJNA\n\n")
-                        .Centered()
-                        .Color(Color.DeepPink3));
-
-                //AnsiConsole.Markup("[bold][on Pink1][Deeppink4]FUTRZANA FERAJNA[/][/][/]\n\n");
-
-                var choice = AnsiConsole.Prompt(
-                        new SelectionPrompt<string>()
-                .Title("Wybierz opcję:")
-                            .AddChoices(opcje)
-                            .HighlightStyle(new Style(foreground: Color.DeepPink3_1, background: Color.Pink1)));
-                Login(choice, widokTekstowy, app);
-            }
-        }*/
         public void Login(string choice,WidokTekstowy widokTekstowy,WebApplication app)
         {
-            string haslo;
             if (choice == "Gość")
             {
                 menu.OpcjeGlowne(app);
-               // AnsiConsole.WriteLine("\n\nNaciśnij dowolny klawisz, aby kontynuować...");
-                //Console.ReadKey();
             }
             else if (choice == "Wolontariusz")
             {
-                AnsiConsole.Markup("Podaj hasło: ");
-                int i;
-                for (i = 3; i > 0; i--)
-                {
-                    haslo = Console.ReadLine();
-                    if (haslo == "student")
-                    {
-                        menu.OpcjeWolontariusz(widokTekstowy, app);
-                        AnsiConsole.Markup("wolontariusz");
-                        break;
-                    }
-                    else if (i != 1)
-                    {
-                        AnsiConsole.Markup($"Bledne haslo.Zostały {i - 1} proby.\n Podaj poprawne haslo:");
-                    }
-                }
-                Console.Clear();
-                if (i == 0)
-                {
-                    Thread.Sleep(2000);
-                    for (int j = 3; j > 0; j--)
-                    {
-                        Console.WriteLine(j);
-                        Thread.Sleep(1000);
-                    }
-                    var image = new CanvasImage("bomba.png");
-                    image.MaxWidth(48);
-                    AnsiConsole.Write(image);
-                    AnsiConsole.WriteLine("\n\nNaciśnij dowolny klawisz, aby kontynuować...");
-                    Console.ReadKey();
-                }
+                HasloW(app);
             }
-            else if (choice == "Administrator")
+            else if(choice == "Administrator")
             {
-                AnsiConsole.Markup("Podaj hasło: ");
-                haslo = Console.ReadLine();
-                if (haslo == "netlab")
-                {
-                    AnsiConsole.Markup("admin");
-                    menu.OpcjeAdmin(widokTekstowy, app);
-                }
+                HasloA(app);
             }
             else if (choice == "Strona internetowa")
             {
@@ -105,6 +36,95 @@ namespace Schronisko.Views.Tekstowy
                 AnsiConsole.Markup("[bold red]KONIEC...[/]\n");
                 Environment.Exit(0);
             }
+        }
+        public void HasloW(WebApplication app)
+        {
+            string h, id;
+            AnsiConsole.Markup("Podaj indeks: ");
+            int i;
+            for (i = 3; i > 0; i--)
+            {
+                id=Console.ReadLine();
+                AnsiConsole.Markup("Podaj hasło: ");
+                h = Console.ReadLine();
+                string plik = "volounteers.txt";
+                if (File.Exists(plik))
+                {
+                    var linie = File.ReadAllLines(plik);
+                    for (int j = 0; j < linie.Length; j++)
+                    {
+                        var linia = linie[j].Split(';');
+                        if (linia[8] != "akceptacja")
+                        {
+                            Console.WriteLine("Nie zostałej jeszcze przyjęty do grona wolontariuszy, nie możesz sie zalogować");
+                        }
+                        else if (linia.Length == 11)
+                        {
+                            if (linia[9] == h && linia[10] == id)
+                            {
+                                string nazwa = linia[0] +' '+ linia[1];
+                                menu.OpcjeWolontariusz(widokTekstowy, app, nazwa);
+                                return;
+                            }
+                        }
+                    }
+                }
+                if (i != 1)
+                   AnsiConsole.Markup($"Podano bledne haslo lub indeks. Zostały {i - 1} proby logowania.\n Podaj indeks:"); 
+            }
+            Console.Clear();
+            if (i == 0)
+            {
+                Thread.Sleep(2000);
+                for (int j = 3; j > 0; j--)
+                {
+                    Console.WriteLine(j);
+                    Thread.Sleep(1000);
+                }
+                var image = new CanvasImage("bomba.png");
+                image.MaxWidth(48);
+                AnsiConsole.Write(image);
+                AnsiConsole.WriteLine("\n\nNaciśnij dowolny klawisz, aby kontynuować...");
+                Console.ReadKey();
+            }
+        }
+        public void HasloA(WebApplication app )
+        {
+            string haslo = "";
+            AnsiConsole.Markup("Podaj hasło: ");
+            int i;
+            for (i = 3; i > 0; i--)
+            {
+                
+                haslo = Console.ReadLine();
+                if (haslo == "netlab")
+                {
+                    menu.OpcjeAdmin(widokTekstowy, app);
+                    AnsiConsole.Markup("Administrator");
+                    break;
+                }
+
+                else if (i != 1)
+                {
+                    AnsiConsole.Markup($"Bledne haslo.Zostały {i - 1} proby.\n Podaj poprawne haslo:");
+                }
+            }
+            Console.Clear();
+            if (i == 0)
+            {
+                Thread.Sleep(2000);
+                for (int j = 3; j > 0; j--)
+                {
+                    Console.WriteLine(j);
+                    Thread.Sleep(1000);
+                }
+                var image = new CanvasImage("bomba.png");
+                image.MaxWidth(48);
+                AnsiConsole.Write(image);
+                AnsiConsole.WriteLine("\n\nNaciśnij dowolny klawisz, aby kontynuować...");
+                Console.ReadKey();
+            }
+           
         }
     }
 }

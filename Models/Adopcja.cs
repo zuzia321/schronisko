@@ -1,5 +1,7 @@
 ﻿using Spectre.Console;
 using System.ComponentModel.DataAnnotations;
+using System.Net.Sockets;
+using System.Net;
 
 namespace Schronisko.Models
 {
@@ -13,6 +15,9 @@ namespace Schronisko.Models
         [MinLength(2, ErrorMessage = "Nazwisko musi mieć co najmniej 2 znaki.")]
         [MaxLength(50, ErrorMessage = "Nazwisko może mieć maksymalnie 50 znaków.")]
         public string Nazwisko { get; set; }
+
+        [Required(ErrorMessage ="Wiek jest wymagany. ")]
+        public string Wiek {  get; set; }
 
         [Required(ErrorMessage = "Numer telefonu jest wymagany.")]
         [StringLength(9, MinimumLength = 9, ErrorMessage = "Numer telefonu musi mieć dokładnie 9 cyfr.")]
@@ -56,6 +61,24 @@ namespace Schronisko.Models
                 return true;
             return false;
         }
+        public bool poprawnoscWiek(string wiek)
+        {
+            if (int.Parse(wiek) >= 18)
+                return true;
+            return false;
+        }
+        public bool poprawnoscEmail(string email)
+        {
+            try
+            {
+                var domain = email.Substring(email.IndexOf('@') + 1);
+                var hostEntry = Dns.GetHostEntry(domain);
+                return hostEntry.AddressList.Length > 0;
+            }
+            catch (SocketException)
+            {
+                return false; // Domeny nie ma w DNS
+            }
+        }
     }
-   
 }
