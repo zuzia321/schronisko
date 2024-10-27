@@ -1,3 +1,5 @@
-mariusz;kozak;03.12.1978 00:00:00;123987654;mk@gmail.ocm;nie;aaa;tak;akceptacja;dupa;1
-Michalek;kleszcz;05.04.2005 00:00:00;546353570;mer@dusia.com;nie;lol;nie;akceptacja;klg;2
-Maria;Kulesza;02.09.2003 00:00:00;897123456;mk@gmail.com;tak;kocha bonitke;tak;akceptacja;kupa;3
+Maria Marta;Kulesza;02.09.2003 00:00:00;123456789;lubikotki@onet.pl;tak;kotki;tak;akceptacja;msp;1
+Zuzia;Bobrykow;14.10.2003 00:00:00;987654321;lucy@gmail.com;tak;pieski kocham;tak;akceptacja;Lucy;2
+Mariuszek;Kozak;27.06.1997 00:00:00;908765234;gigaczad@wp.pl;nie;pakiet dyskotekowy;tak;akceptacja;stary_ale_jary;3
+Sylwester;Kowalewski;12.06.2003 00:00:00;345127890;nalogike@gmail.com;nie;basen;tak;oczekujący;masło
+Konrad;Kunicki;09.12.2003 00:00:00;123897456;biceps@onet.pl;nie;skiny i siłownia;nie;akceptacja;love_sky;5

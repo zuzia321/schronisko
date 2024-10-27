@@ -64,7 +64,7 @@ namespace Schronisko.Views.Tekstowy
             wolontariusz.Haslo = Validation.PobierzPoprawneDane("Podaj hasło: ", wolontariusz, nameof(wolontariusz.Haslo));
 
             //string daneWolontariusz = $"\n{wolontariusz.Imie};{wolontariusz.DataUrodzenia};{wolontariusz.Telefon};{wolontariusz.Email}";
-            string daneWolontariusz = $"{wolontariusz.Imie};{wolontariusz.Nazwisko};{wolontariusz.DataUrodzenia};{wolontariusz.Telefon};{wolontariusz.Email};{wolontariusz.Miasto};{wolontariusz.Opis};{wolontariusz.Doswiadczenie};{wolontariusz.Stan};{wolontariusz.Haslo}";
+            string daneWolontariusz = $"{wolontariusz.Imie};{wolontariusz.Nazwisko};{wolontariusz.DataUrodzenia};{wolontariusz.Telefon};{wolontariusz.Email};{wolontariusz.Miasto};{wolontariusz.Opis};{wolontariusz.Doswiadczenie};{wolontariusz.Stan};{wolontariusz.Haslo}\n";
             File.AppendAllText(plikW, daneWolontariusz);
 
             return wolontariusz;
@@ -83,7 +83,7 @@ namespace Schronisko.Views.Tekstowy
             Console.WriteLine($"Mieszka w mieście: {wolontariusz.Miasto}");
             Console.WriteLine($"Zainteresowania: {wolontariusz.Opis}");
             Console.WriteLine($"Doświadczenie: {wolontariusz.Doswiadczenie}");
-            AnsiConsole.Markup($"[red]{wolontariusz.Stan}[/]");
+            AnsiConsole.Markup($"[#FF0000]{wolontariusz.Stan}[/]");
         }
 
         private readonly string plikZ = "Animals.txt";
@@ -96,19 +96,17 @@ namespace Schronisko.Views.Tekstowy
             zwierze.Imie = Validation.PobierzPoprawneDane("Podaj imie: ", zwierze, nameof(zwierze.Imie));
             zwierze.Wiek = Validation.PobierzPoprawneDane("Podaj wiek (jeżeli mniej niż rok podaj ułamek x/12): ", zwierze, nameof(zwierze.Wiek));
 
-            Console.Write("Podaj datę trafirnia do schroniska (rrrr-mm-dd): ");
+            Console.Write("Podaj datę trafienia do schroniska (rrrr-mm-dd): ");
             zwierze.OdKiedyWSchronisku = DateOnly.Parse(Console.ReadLine());
 
             Console.Write("Podaj jakie to zwierze (pies, kot ...): ");
             zwierze.RodzajZwierzecia = Console.ReadLine();
-            while (!poprawnoscZwierze.poprawnoscStan(zwierze.RodzajZwierzecia))
+            while (!poprawnoscZwierze.poprawnoscRodzaj(zwierze.RodzajZwierzecia))
             {
-                Console.WriteLine("Rodzaj zwierzęcia obejmuje taką listę: pies, kot, jaszczurka, ptak, szczur, mysz, chomik, królik, świnka morska, szynszyla, żółw, krowa, świnia, kura, owca, koza, kaczka, gęś");
+                AnsiConsole.Markup("[#FF0000]Rodzaj zwierzęcia obejmuje taką listę[/]: pies, kot, jaszczurka, ptak, szczur, mysz, chomik, królik, świnka morska, szynszyla, żółw, krowa, świnia, kura, owca, koza, kaczka, gęś");
                 Console.Write("Podaj jakie to zwierze: ");
                 zwierze.RodzajZwierzecia = Console.ReadLine();
             }
-            Console.Write(" : ");
-            zwierze.RodzajZwierzecia = Console.ReadLine();
 
             zwierze.Gatunek = Validation.PobierzPoprawneDane("Podaj gatunek: ", zwierze, nameof(zwierze.Gatunek));
 
@@ -116,14 +114,14 @@ namespace Schronisko.Views.Tekstowy
             zwierze.Stan = Console.ReadLine();
             while (!poprawnoscZwierze.poprawnoscStan(zwierze.Stan))
             {
-                Console.WriteLine("Poprawna forma odpowiedzi : tak lub nie");
+                AnsiConsole.Markup("[#FF0000]Poprawna forma odpowiedzi : tak lub nie[/]");
                 Console.Write("Czy jest już dostępny do adopcji? (tak/nie): ");
                 zwierze.Stan = Console.ReadLine();
             }
 
             zwierze.Opis=Validation.PobierzPoprawneDane("Podaj opis: ",zwierze,nameof(zwierze.Opis));
 
-            string daneZwierze = $"\n{zwierze.Imie};{zwierze.Wiek};{zwierze.OdKiedyWSchronisku};{zwierze.RodzajZwierzecia};{zwierze.Gatunek};{zwierze.Stan};{zwierze.Opis}";
+            string daneZwierze = $"{zwierze.Imie};{zwierze.Wiek};{zwierze.OdKiedyWSchronisku};{zwierze.RodzajZwierzecia};{zwierze.Gatunek};{zwierze.Stan};{zwierze.Opis}";
             File.AppendAllText(plikZ, daneZwierze);
 
             return zwierze;

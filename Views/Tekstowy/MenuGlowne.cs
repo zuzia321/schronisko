@@ -53,7 +53,7 @@ namespace Schronisko.Views.Tekstowy
             }
             else if (choice == "Zakończ przeglądanie")
             {
-                AnsiConsole.Markup("[bold red]KONIEC...[/]\n");
+                AnsiConsole.Markup("[#FF0000]KONIEC...[/]\n");
                 Environment.Exit(0);
             }  
         }

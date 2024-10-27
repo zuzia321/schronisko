@@ -16,7 +16,6 @@ namespace Schronisko.Views.Tekstowy
         {
             Wczytaj(); // Wczytaj wydarzenia z pliku podczas inicjalizacji
         }
-
         // Metoda do zapisywania wydarzeń do pliku
         public void Zapisz()
         {
@@ -28,7 +27,6 @@ namespace Schronisko.Views.Tekstowy
                 }
             }
         }
-
         // Metoda do wczytywania wydarzeń z pliku
         public void Wczytaj()
         {
@@ -40,16 +38,12 @@ namespace Schronisko.Views.Tekstowy
                     while ((line = reader.ReadLine()) != null)
                     {
                         var parts = line.Split(';');
-                        if (parts.Length == 2 &&
-                            DateTime.TryParse(parts[0], out DateTime data))
-                        {
+                        if (parts.Length == 2 &&DateTime.TryParse(parts[0], out DateTime data))
                             dniPracy.Add((data, parts[1]));
-                        }
                     }
                 }
             }
         }
-
 
         public void DodajDzien(DateTime data,string nazwa)
         {
