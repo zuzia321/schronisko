@@ -74,8 +74,8 @@ namespace Schronisko.Views.Tekstowy
                 };
                 var wybranaOpcja = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
-                        .Title("Wybierz opcję:")
-                         .HighlightStyle(new Style(foreground: Color.DeepPink3_1, background: Color.Pink1))
+                        .Title("\nWybierz opcję:")
+                        .HighlightStyle(new Style(foreground: Color.DeepPink3_1, background: Color.Pink1))
                         .AddChoices(opcje));
 
                 if (wybranaOpcja == "Formularz adopcyjny")

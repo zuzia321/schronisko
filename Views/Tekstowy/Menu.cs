@@ -37,7 +37,7 @@ namespace Schronisko.Views.Tekstowy
             while (true)
             {
                 AnsiConsole.Clear();
-                AnsiConsole.Markup("[bold][on Pink1][Deeppink4]FUTRZANA FERAJNA[/][/][/]\n\n");
+                AnsiConsole.Markup("[bold][on Pink1][Deeppink3]FUTRZANA FERAJNA[/][/][/]\n\n");
 
                 var wybor = AnsiConsole.Prompt(
                         new SelectionPrompt<string>()
@@ -63,7 +63,7 @@ namespace Schronisko.Views.Tekstowy
             while (true)
             {
                 AnsiConsole.Clear();
-                AnsiConsole.Markup("[bold][on Pink1][Deeppink4]FUTRZANA FERAJNA\n ADMIN[/][/][/]\n\n");
+                AnsiConsole.Markup("[bold][on Pink1][Deeppink3]FUTRZANA FERAJNA: WOLONTARIUSZ[/][/][/]\n\n");
 
                 var wybor = AnsiConsole.Prompt(
                         new SelectionPrompt<string>()
@@ -74,7 +74,7 @@ namespace Schronisko.Views.Tekstowy
                 menuWolontariusz.MenuWolontariuszOpis(wybor, widokTekstowy, app,menuKalendarz,nazwa);
                 if (wybor == "Wyloguj")
                 {
-                    break; // Powrót do logowania
+                    break;
                 }
             }
         }
@@ -86,7 +86,7 @@ namespace Schronisko.Views.Tekstowy
                 "Dodaj Zwierzaka",
                 "Edytuj zwierzaka",
                 "Usuń Zwierzaka",
-                "Dodaj Wolontariusza",//akceptuj
+                "Dodaj Wolontariusza",
                 "Edytuj Wolontariusza",
                 "Usuń Wolontariusza",
                 "Wyloguj",
@@ -95,7 +95,7 @@ namespace Schronisko.Views.Tekstowy
             while (true)
             {
                 AnsiConsole.Clear();
-                AnsiConsole.Markup("[bold][on Pink1][Deeppink4]FUTRZANA FERAJNA\n ADMIN[/][/][/]\n\n");
+                AnsiConsole.Markup("[bold][on Pink1][Deeppink3]FUTRZANA FERAJNA: ADMIN[/][/][/]\n\n");
 
                 var wybor = AnsiConsole.Prompt(
                         new SelectionPrompt<string>()
@@ -106,7 +106,7 @@ namespace Schronisko.Views.Tekstowy
                 menuAdmin.MenuAdminOpis(wybor, widokTekstowy, app);
                 if (wybor == "Wyloguj")
                 {
-                    break; // Powrót do logowania
+                    break;
                 }
             }
         }

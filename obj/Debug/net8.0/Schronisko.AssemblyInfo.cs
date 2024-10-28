@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Schronisko")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3d532d8f48f1d676c920f142f47f1b61d6ffc289")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+533d805f36f382c7c44e89025cda6662c6f27149")]
 [assembly: System.Reflection.AssemblyProductAttribute("Schronisko")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Schronisko")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

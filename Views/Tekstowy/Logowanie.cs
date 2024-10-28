@@ -33,7 +33,7 @@ namespace Schronisko.Views.Tekstowy
             }
             else if (choice == "Zakończ przeglądanie")
             {
-                AnsiConsole.Markup("[bold red]KONIEC...[/]\n");
+                AnsiConsole.Markup("[#FF0000]KONIEC...[/]\n");
                 Environment.Exit(0);
             }
         }
@@ -70,7 +70,7 @@ namespace Schronisko.Views.Tekstowy
                     }
                 }
                 if (i != 1)
-                   AnsiConsole.Markup($"Podano bledne haslo lub indeks. Zostały {i - 1} proby logowania.\n Podaj indeks:"); 
+                   AnsiConsole.Markup($"Podano błędne hasło lub indeks. Zostały {i - 1} próby logowania.\n Podaj indeks:"); 
             }
             Console.Clear();
             if (i == 0)
@@ -90,13 +90,13 @@ namespace Schronisko.Views.Tekstowy
         }
         public void HasloA(WebApplication app )
         {
-            string haslo = "";
+           // string haslo = "";
             AnsiConsole.Markup("Podaj hasło: ");
             int i;
             for (i = 3; i > 0; i--)
             {
-                
-                haslo = Console.ReadLine();
+                string haslo = UkryjWejscie();
+                //haslo = Console.ReadLine();
                 if (haslo == "netlab")
                 {
                     menu.OpcjeAdmin(widokTekstowy, app);
@@ -106,7 +106,7 @@ namespace Schronisko.Views.Tekstowy
 
                 else if (i != 1)
                 {
-                    AnsiConsole.Markup($"Bledne haslo.Zostały {i - 1} proby.\n Podaj poprawne haslo:");
+                    AnsiConsole.Markup($"\nBłędne hasło.Zostały {i - 1} próby.\n Podaj poprawne haslo:");
                 }
             }
             Console.Clear();
@@ -125,6 +125,22 @@ namespace Schronisko.Views.Tekstowy
                 Console.ReadKey();
             }
            
+        }
+        static string UkryjWejscie()
+        {
+            string input = string.Empty;
+
+            // Odczytywanie znaków aż do naciśnięcia Enter
+            while (true)
+            {
+                var key = Console.ReadKey(intercept: true); // Nie pokazuj znaku
+                if (key.Key == ConsoleKey.Enter) break; // Wyjdź po Enter
+
+                input += key.KeyChar; // Dodaj znak do wejścia
+                Console.Write('*'); // Wyświetl zastępczy znak
+            }
+
+            return input; // Zwróć wprowadzone dane
         }
     }
 }

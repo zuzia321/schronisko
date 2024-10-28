@@ -1,6 +1,7 @@
 ﻿using Schronisko.Models;
 using Spectre.Console;
 using System.Drawing.Drawing2D;
+using System.Globalization;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 
@@ -12,14 +13,17 @@ namespace Schronisko.Views.Tekstowy
         private readonly poprawnoscZwierze poprawnoscZwierze = new poprawnoscZwierze();
         private readonly poprawnoscWolontariusza poprawnoscW=new poprawnoscWolontariusza();
         private readonly string plikW = "volounteers.txt";
+
+        TextInfo textInfo = CultureInfo.CurrentCulture.TextInfo;
+        // Zmienia pierwszą literę na wielką i resztę na małe
         public Wolontariusz stworzWolontariusza(ref int pom)
         {
             Wolontariusz wolontariusz =new Wolontariusz();
 
             Console.WriteLine("WOLONTARIUSZ");
 
-            wolontariusz.Imie = Validation.PobierzPoprawneDane("Podaj imię:", wolontariusz, nameof(wolontariusz.Imie));
-            wolontariusz.Nazwisko = Validation.PobierzPoprawneDane("Podaj nazwisko:", wolontariusz, nameof(wolontariusz.Nazwisko));
+            wolontariusz.Imie = textInfo.ToTitleCase(Validation.PobierzPoprawneDane("Podaj imię:", wolontariusz, nameof(wolontariusz.Imie)).ToLower());
+            wolontariusz.Nazwisko = textInfo.ToTitleCase(Validation.PobierzPoprawneDane("Podaj imię:", wolontariusz, nameof(wolontariusz.Nazwisko)).ToLower());
 
             //wolontariusz.DataUrodzenia = Validation.PobierzPoprawneDane("Podaj datę urodzenia (format: YYYY-MM-DD):", wolontariusz, nameof(wolontariusz.DataUrodzenia));
             Console.Write("Podaj datę urodzenia (rrrr-mm-dd): ");
@@ -73,17 +77,24 @@ namespace Schronisko.Views.Tekstowy
         {
             Console.Clear();
             int index = File.ReadAllLines("volounteers.txt").Length;
+            /*
+            var wszystkieLinie = File.ReadAllLines(plikW).ToList();
+            int dlugosc = wszystkieLinie.Count;
+            var linia=wszystkieLinie[dlugosc - 1].Split(';');
+
+            int index = (int.Parse(linia[10]))+1;
+            */
             AnsiConsole.Markup($"[Deeppink1]Twoj wygenerowany indeks do logowania:[bold] {index}[/][/] ");
             Console.WriteLine("\nDane wolontariusza:");
-            Console.WriteLine($"Imię: {wolontariusz.Imie}");
-            Console.WriteLine($"Nazwisko: {wolontariusz.Nazwisko}");
-            Console.WriteLine($"Data urodzenia: {wolontariusz.DataUrodzenia.ToShortDateString()}");
-            Console.WriteLine($"Telefon: {wolontariusz.Telefon}");
-            Console.WriteLine($"Email: {wolontariusz.Email}");
-            Console.WriteLine($"Mieszka w mieście: {wolontariusz.Miasto}");
-            Console.WriteLine($"Zainteresowania: {wolontariusz.Opis}");
-            Console.WriteLine($"Doświadczenie: {wolontariusz.Doswiadczenie}");
-            AnsiConsole.Markup($"[#FF0000]{wolontariusz.Stan}[/]");
+            Console.WriteLine($" Imię: {wolontariusz.Imie}");
+            Console.WriteLine($" Nazwisko: {wolontariusz.Nazwisko}");
+            Console.WriteLine($" Data urodzenia: {wolontariusz.DataUrodzenia.ToShortDateString()}");
+            Console.WriteLine($" Telefon: {wolontariusz.Telefon}");
+            Console.WriteLine($" Email: {wolontariusz.Email}");
+            Console.WriteLine($" Mieszka w mieście: {wolontariusz.Miasto}");
+            Console.WriteLine($" Zainteresowania: {wolontariusz.Opis}");
+            Console.WriteLine($" Doświadczenie: {wolontariusz.Doswiadczenie}");
+            AnsiConsole.Markup($" [#FF0000]{wolontariusz.Stan}[/]");
         }
 
         private readonly string plikZ = "Animals.txt";
@@ -93,7 +104,7 @@ namespace Schronisko.Views.Tekstowy
 
             Console.WriteLine("ZWIERZĘ");
 
-            zwierze.Imie = Validation.PobierzPoprawneDane("Podaj imie: ", zwierze, nameof(zwierze.Imie));
+            zwierze.Imie = textInfo.ToTitleCase(Validation.PobierzPoprawneDane("Podaj imię:", zwierze, nameof(zwierze.Imie)).ToLower());
             zwierze.Wiek = Validation.PobierzPoprawneDane("Podaj wiek (jeżeli mniej niż rok podaj ułamek x/12): ", zwierze, nameof(zwierze.Wiek));
 
             Console.Write("Podaj datę trafienia do schroniska (rrrr-mm-dd): ");
@@ -121,7 +132,7 @@ namespace Schronisko.Views.Tekstowy
 
             zwierze.Opis=Validation.PobierzPoprawneDane("Podaj opis: ",zwierze,nameof(zwierze.Opis));
 
-            string daneZwierze = $"{zwierze.Imie};{zwierze.Wiek};{zwierze.OdKiedyWSchronisku};{zwierze.RodzajZwierzecia};{zwierze.Gatunek};{zwierze.Stan};{zwierze.Opis}";
+            string daneZwierze = $"{zwierze.Imie};{zwierze.Wiek};{zwierze.OdKiedyWSchronisku};{zwierze.RodzajZwierzecia};{zwierze.Gatunek};{zwierze.Stan};{zwierze.Opis}\n";
             File.AppendAllText(plikZ, daneZwierze);
 
             return zwierze;
@@ -130,6 +141,8 @@ namespace Schronisko.Views.Tekstowy
 
         public void WyswietlZwierze(Zwierze zwierze)
         {
+            Console.Clear();
+            AnsiConsole.Markup("[bold][on Pink1][Deeppink3]FUTRZANA FERAJNA: ADMIN[/][/][/]\n\n");
             Console.WriteLine("\nDane zwierzęcia:");
             Console.WriteLine($"Imię: {zwierze.Imie}");
             Console.WriteLine($"Wiek: {zwierze.Wiek}");
@@ -139,14 +152,11 @@ namespace Schronisko.Views.Tekstowy
             Console.WriteLine($"Dostępny do adopcji? : {zwierze.Stan }");
             Console.WriteLine($"Opis: {zwierze.Opis}");
         }
-
+        
         public Adopcja stworzAdopcje(ref int pom)
         {
             Adopcja adopcja = new Adopcja();
-
-            Console.WriteLine("FORLMULARZ ADOPCYJNY");
-
-            adopcja.Imie = Validation.PobierzPoprawneDane("Podaj imię:", adopcja, nameof(adopcja.Imie));
+            adopcja.Imie =Validation.PobierzPoprawneDane("Podaj imię:", adopcja, nameof(adopcja.Imie));
             adopcja.Nazwisko = Validation.PobierzPoprawneDane("Podaj nazwisko:", adopcja, nameof(adopcja.Nazwisko));
 
             Console.Write("Podaj swój wiek: ");
