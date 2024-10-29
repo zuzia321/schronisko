@@ -39,14 +39,14 @@ namespace Schronisko.Views.Tekstowy
         }
         public void HasloW(WebApplication app)
         {
-            string h, id;
+            string id;// ,h;
             AnsiConsole.Markup("Podaj indeks: ");
             int i;
             for (i = 3; i > 0; i--)
             {
                 id=Console.ReadLine();
                 AnsiConsole.Markup("Podaj hasło: ");
-                h = Console.ReadLine();
+                string h = UkryjWejscie();
                 string plik = "volounteers.txt";
                 if (File.Exists(plik))
                 {
@@ -54,23 +54,26 @@ namespace Schronisko.Views.Tekstowy
                     for (int j = 0; j < linie.Length; j++)
                     {
                         var linia = linie[j].Split(';');
-                        if (linia[8] != "akceptacja")
+                        if (linia.Length == 11)
                         {
-                            Console.WriteLine("Nie zostałej jeszcze przyjęty do grona wolontariuszy, nie możesz sie zalogować");
-                        }
-                        else if (linia.Length == 11)
-                        {
-                            if (linia[9] == h && linia[10] == id)
+                            if (linia[10] == id)
                             {
-                                string nazwa = linia[0] +' '+ linia[1];
-                                menu.OpcjeWolontariusz(widokTekstowy, app, nazwa);
-                                return;
+                                if (linia[8] != "akceptacja")
+                                {
+                                    Console.WriteLine("Nie zostałeś jeszcze przyjęty do grona wolontariuszy, nie możesz sie zalogować");
+                                }
+                                else if (linia[9] == h)
+                                {
+                                    string nazwa = linia[0] + ' ' + linia[1];
+                                    menu.OpcjeWolontariusz(widokTekstowy, app, nazwa);
+                                    return;
+                                }
                             }
                         }
                     }
                 }
                 if (i != 1)
-                   AnsiConsole.Markup($"Podano błędne hasło lub indeks. Zostały {i - 1} próby logowania.\n Podaj indeks:"); 
+                   AnsiConsole.Markup($"\nPodano błędne hasło lub indeks. Zostały[#FF0000] {i - 1} [/]próby logowania.\nPodaj indeks:"); 
             }
             Console.Clear();
             if (i == 0)
@@ -90,13 +93,11 @@ namespace Schronisko.Views.Tekstowy
         }
         public void HasloA(WebApplication app )
         {
-           // string haslo = "";
             AnsiConsole.Markup("Podaj hasło: ");
             int i;
             for (i = 3; i > 0; i--)
             {
                 string haslo = UkryjWejscie();
-                //haslo = Console.ReadLine();
                 if (haslo == "netlab")
                 {
                     menu.OpcjeAdmin(widokTekstowy, app);
@@ -106,7 +107,7 @@ namespace Schronisko.Views.Tekstowy
 
                 else if (i != 1)
                 {
-                    AnsiConsole.Markup($"\nBłędne hasło.Zostały {i - 1} próby.\n Podaj poprawne haslo:");
+                    AnsiConsole.Markup($"\nBłędne hasło.Zostały [#FF0000]{i - 1}[/] próby.\n Podaj poprawne haslo:");
                 }
             }
             Console.Clear();
@@ -129,18 +130,25 @@ namespace Schronisko.Views.Tekstowy
         static string UkryjWejscie()
         {
             string input = string.Empty;
-
-            // Odczytywanie znaków aż do naciśnięcia Enter
             while (true)
             {
-                var key = Console.ReadKey(intercept: true); // Nie pokazuj znaku
-                if (key.Key == ConsoleKey.Enter) break; // Wyjdź po Enter
-
-                input += key.KeyChar; // Dodaj znak do wejścia
-                Console.Write('*'); // Wyświetl zastępczy znak
+                var key = Console.ReadKey(intercept: true);
+                if (key.Key == ConsoleKey.Enter) break;
+                if (key.Key == ConsoleKey.Backspace)
+                {
+                    if (input.Length > 0)
+                    {
+                        input = input[..^1];
+                        Console.Write("\b \b");
+                    }
+                }
+                else
+                {
+                    input += key.KeyChar;
+                    Console.Write('*');
+                }
             }
-
-            return input; // Zwróć wprowadzone dane
+            return input;
         }
     }
 }

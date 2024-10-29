@@ -1,7 +1,8 @@
-Maria Marta;Kulesza;02.09.2003;123456789;lubikotki@onet.pl;tak;kotki;nie;akceptacja;msp;1
+Maria Marta;Kulesza;02.09.2003;;lubikotki@onet.pl;tak;kotki i pieski;nie;akceptacja;msp;1
 Zuzia;Bobrykow;14.10.2003 00:00:00;987654321;lucy@gmail.com;tak;pieski kocham;tak;akceptacja;Lucy;2
-Sylwester;Kowalewski;12.06.2003 00:00:00;345127890;nalogike@gmail.com;nie;basen;tak;oczekujący;masło;
-Konrad;Kunicki;09.12.2003 00:00:00;123897456;biceps@onet.pl;nie;skiny i siłownia;nie;akceptacja;love_sky;5
-Ewelina;Nowak;02.02.1993 00:00:00;999222333;ewela@gmail.com;nie;kocham chodzić po górach;nie;oczekujący;mountains
-Henryk;Sienkiwicz;12.06.1967 00:00:00;123543678;h.sien@wp.pl;nie;kocham czytać ksiązki, sam zajmuję się poezją;tak;oczekujący;WPustyniIWPuszczy
-Julisz;Słowacki;13.06.1967 00:00:00;123321213;słowa@gmail.com;tak;poezja moim życiem;nie;oczekujący;Balladyna
+Sylwester;Kowalewski;12.06.2003 00:00:00;345127890;nalogike@gmail.com;nie;basen;tak;oczekujący;masło;3
+Konrad;Kunicki;09.12.2003 00:00:00;123897456;biceps@onet.pl;nie;skiny i siłownia;nie;akceptacja;love_sky;4
+Henryk;Sienkiwicz;12.06.1967 00:00:00;123543678;h.sien@wp.pl;nie;kocham czytać ksiązki, sam zajmuję się poezją;nie;akceptacja;WPustyniIWPuszczy;6
+Julisz;Słowacki;13.06.1967 00:00:00;123321213;słowa@gmail.com;tak;poezja moim życiem;nie;oczekujący;Balladyna;7
+Adam;Mickiewicz;09.10.1967 00:00:00;456578965;mickey@onet.pl;tak;ojczyzna na zawsze;nie;akceptacja;tadzik;8
+Sylwester;Baton;30.09.2003 00:00:00;876145624;snickers@onet.pl;nie;basen i siłownia;tak;oczekujący;masłoOrzechowe;9

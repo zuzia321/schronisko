@@ -3,6 +3,6 @@ Lili;4/12;2024-09-21;kot;brytyjski długowłosy;nie;jest mała i puchata
 Gacek;5;08.07.2024;papuga;sępica;tak;nieprzewidywalna, nietypowa
 Precel;4;02.10.2024;pies;hart;Adopted;nieśmiały
 Jogurt;3/12;21.10.2024;kot;czarno-biały;nie;ślepy
-Rudy;8;2024-10-03;pies;spaniel;Adopted;piekny, lagodny, lubi dzieci
-Burek;2;26.10.2024;pies;york;nie;kocha pasztet
+Burek;2;26.10.2024;pies;york;tak;kocha pasztet
 Kotlet;4/12;25.10.2024;kot;norweski leśny;nie;uwielbia jeść
+Rudy;8;2024-10-03;pies;spaniel;tak;piekny, lagodny, lubi dzieci

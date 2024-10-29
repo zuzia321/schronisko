@@ -77,7 +77,7 @@ namespace Schronisko.Models
             }
             catch (SocketException)
             {
-                return false; // Domeny nie ma w DNS
+                return false;
             }
         }
     }

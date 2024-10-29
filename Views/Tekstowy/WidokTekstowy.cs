@@ -15,7 +15,7 @@ namespace Schronisko.Views.Tekstowy
         private readonly string plikW = "volounteers.txt";
 
         TextInfo textInfo = CultureInfo.CurrentCulture.TextInfo;
-        // Zmienia pierwszą literę na wielką i resztę na małe
+       
         public Wolontariusz stworzWolontariusza(ref int pom)
         {
             Wolontariusz wolontariusz =new Wolontariusz();
@@ -23,7 +23,7 @@ namespace Schronisko.Views.Tekstowy
             Console.WriteLine("WOLONTARIUSZ");
 
             wolontariusz.Imie = textInfo.ToTitleCase(Validation.PobierzPoprawneDane("Podaj imię:", wolontariusz, nameof(wolontariusz.Imie)).ToLower());
-            wolontariusz.Nazwisko = textInfo.ToTitleCase(Validation.PobierzPoprawneDane("Podaj imię:", wolontariusz, nameof(wolontariusz.Nazwisko)).ToLower());
+            wolontariusz.Nazwisko = textInfo.ToTitleCase(Validation.PobierzPoprawneDane("Podaj nazwisko:", wolontariusz, nameof(wolontariusz.Nazwisko)).ToLower());
 
             //wolontariusz.DataUrodzenia = Validation.PobierzPoprawneDane("Podaj datę urodzenia (format: YYYY-MM-DD):", wolontariusz, nameof(wolontariusz.DataUrodzenia));
             Console.Write("Podaj datę urodzenia (rrrr-mm-dd): ");
@@ -66,9 +66,14 @@ namespace Schronisko.Views.Tekstowy
             }
 
             wolontariusz.Haslo = Validation.PobierzPoprawneDane("Podaj hasło: ", wolontariusz, nameof(wolontariusz.Haslo));
+            var wszystkieLinie = File.ReadAllLines(plikW).ToList();
+            int dlugosc = wszystkieLinie.Count;
+            var linia = wszystkieLinie[dlugosc - 1].Split(';');
 
+            int index = (int.Parse(linia[10])) + 1;
+            wolontariusz.Id=index;
             //string daneWolontariusz = $"\n{wolontariusz.Imie};{wolontariusz.DataUrodzenia};{wolontariusz.Telefon};{wolontariusz.Email}";
-            string daneWolontariusz = $"{wolontariusz.Imie};{wolontariusz.Nazwisko};{wolontariusz.DataUrodzenia};{wolontariusz.Telefon};{wolontariusz.Email};{wolontariusz.Miasto};{wolontariusz.Opis};{wolontariusz.Doswiadczenie};{wolontariusz.Stan};{wolontariusz.Haslo}\n";
+            string daneWolontariusz = $"{wolontariusz.Imie};{wolontariusz.Nazwisko};{wolontariusz.DataUrodzenia};{wolontariusz.Telefon};{wolontariusz.Email};{wolontariusz.Miasto};{wolontariusz.Opis};{wolontariusz.Doswiadczenie};{wolontariusz.Stan};{wolontariusz.Haslo};{wolontariusz.Id}\n";
             File.AppendAllText(plikW, daneWolontariusz);
 
             return wolontariusz;
@@ -76,7 +81,7 @@ namespace Schronisko.Views.Tekstowy
         public void WyswietlWolontariusza(Wolontariusz wolontariusz)
         {
             Console.Clear();
-            int index = File.ReadAllLines("volounteers.txt").Length;
+            //int index = File.ReadAllLines(plikW).Length;
             /*
             var wszystkieLinie = File.ReadAllLines(plikW).ToList();
             int dlugosc = wszystkieLinie.Count;
@@ -84,7 +89,7 @@ namespace Schronisko.Views.Tekstowy
 
             int index = (int.Parse(linia[10]))+1;
             */
-            AnsiConsole.Markup($"[Deeppink1]Twoj wygenerowany indeks do logowania:[bold] {index}[/][/] ");
+            AnsiConsole.Markup($"[Deeppink1]Twoj wygenerowany indeks do logowania:[bold] {wolontariusz.Id}[/][/] ");
             Console.WriteLine("\nDane wolontariusza:");
             Console.WriteLine($" Imię: {wolontariusz.Imie}");
             Console.WriteLine($" Nazwisko: {wolontariusz.Nazwisko}");

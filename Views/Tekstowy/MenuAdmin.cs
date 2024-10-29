@@ -20,37 +20,86 @@ namespace Schronisko.Views.Tekstowy
             }
             else if (choice == "Edytuj zwierzaka")
             {
-                string plik = "Animals.txt";
-                var wszystkieLinie = File.ReadAllLines(plik).ToList();
+                var wszystkieLinie = File.ReadAllLines(plikA).ToList();
+                var validator = new poprawnoscZwierze();
                 for (int j = 0; j < wszystkieLinie.Count; j++)
                 {
                     string[] daneZwierzaka = wszystkieLinie[j].Split(';');
                     Console.WriteLine($"Imię: {daneZwierzaka[0]}, Wiek: {daneZwierzaka[1]}, Gatunek: {daneZwierzaka[3]}\n");
                 }
-                int i;
                 bool znaleziono = false;
                 while (true)
                 {
                     AnsiConsole.Markup("[Deeppink1]Podaj imię zwierzaka, którego chcesz edytować: [/]");
                     string imieDoEdycji = textInfo.ToTitleCase((Console.ReadLine()).ToLower());
-                    for (i = 0; i < wszystkieLinie.Count; i++)
+                    for (int i = 0; i < wszystkieLinie.Count; i++)
                     {
                         if (wszystkieLinie[i].StartsWith(imieDoEdycji + ";"))
                         {
                             znaleziono = true;
                             string[] daneZwierzaka = wszystkieLinie[i].Split(';');
-                            Console.Clear();
-                            AnsiConsole.Markup("[Deeppink1]Bieżące dane zwierzęcia:[/]\n");
-                            Console.WriteLine($"1. Imię: {daneZwierzaka[0]}, \n2. Wiek: {daneZwierzaka[1]},\n3. Data przyjęcia: {daneZwierzaka[2]},\n4. Gatunek: {daneZwierzaka[3]},\n5. Rasa: {daneZwierzaka[4]},\n6. Czy dostępny do adopcji? : {daneZwierzaka[5]},\n7. Opis: {daneZwierzaka[6]},\n8. Anuluj edytokwanie");
-                            Console.WriteLine("\nKtórą informację chcesz edytować? (1-7): ");
-                            int wybor = int.Parse(Console.ReadLine());
-                            if (wybor == 8)
-                                break;
-                            Console.WriteLine("\nPodaj na co chcesz zmienić: ");
-                            string nowaWartosc = Console.ReadLine();
-                            daneZwierzaka[wybor - 1] = nowaWartosc;
-                            wszystkieLinie[i] = $"{daneZwierzaka[0]};{daneZwierzaka[1]};{daneZwierzaka[2]};{daneZwierzaka[3]};{daneZwierzaka[4]};{daneZwierzaka[5]};{daneZwierzaka[6]}";
-                            Console.WriteLine("\nDane zwierzęcia zostały zaktualizowane.");
+                            while (true)
+                            {
+                                Console.Clear();
+                                AnsiConsole.Markup("[Deeppink1]Bieżące dane zwierzęcia:[/]\n");
+                                Console.WriteLine($"1. Imię: {daneZwierzaka[0]}, \n2. Wiek: {daneZwierzaka[1]},\n3. Data przyjęcia: {daneZwierzaka[2]},\n4. Gatunek: {daneZwierzaka[3]},\n5. Rasa: {daneZwierzaka[4]},\n6. Czy dostępny do adopcji? : {daneZwierzaka[5]},\n7. Opis: {daneZwierzaka[6]},\n8. Anuluj edytowanie");
+                                Console.WriteLine("\nKtórą informację chcesz edytować? (1-7): ");
+                                int wybor = int.Parse(Console.ReadLine());
+                                if (wybor == 8)
+                                    break;
+                                string nowaWartosc = "";
+                                Zwierze zwierze = new Zwierze();
+                                bool isValid = true;
+                                switch (wybor)
+                                {
+                                    case 1:
+                                        nowaWartosc = textInfo.ToTitleCase(Validation.PobierzPoprawneDane("Podaj nową wartość:", zwierze, nameof(zwierze.Imie)).ToLower());
+                                        break;
+                                    case 2:
+                                        nowaWartosc = Validation.PobierzPoprawneDane("Podaj nową wartość: ", zwierze, nameof(zwierze.Wiek));
+                                        break;
+                                    case 3:
+                                        nowaWartosc = Validation.PobierzPoprawneDane("Podaj nową wartość: ", zwierze, nameof(zwierze.OdKiedyWSchronisku));
+                                        break;
+                                    case 4:
+                                        Console.WriteLine("Podaj nową wartość: ");
+                                        nowaWartosc = Console.ReadLine();
+                                        if (!validator.poprawnoscRodzaj(nowaWartosc))
+                                        {
+                                            Console.WriteLine();
+                                            isValid = false;
+                                        }
+                                        break;
+                                    case 5:
+                                        nowaWartosc = Validation.PobierzPoprawneDane("Podaj nową wartość: ", zwierze, nameof(zwierze.Gatunek));
+                                        break;
+                                    case 6:
+                                        Console.WriteLine("Podaj nową wartość: ");
+                                        nowaWartosc = Console.ReadLine();
+                                        if (!validator.poprawnoscStan(nowaWartosc))
+                                        {
+                                            Console.WriteLine();
+                                            isValid = false;
+                                        }
+                                        break;
+                                    case 7:
+                                        nowaWartosc = Validation.PobierzPoprawneDane("Podaj nową wartość: ", zwierze, nameof(zwierze.Opis));
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                if (isValid)
+                                {
+                                    daneZwierzaka[wybor - 1] = nowaWartosc;
+                                    wszystkieLinie[i] = string.Join(";", daneZwierzaka);
+                                    Console.WriteLine("Dane zwierzaka zostały zaktualizowane.");
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Wprowadzone dane są niepoprawne. Spróbuj ponownie.");
+                                }
+                            }
                             break;
                         }
                     }
@@ -58,7 +107,7 @@ namespace Schronisko.Views.Tekstowy
                         break;
                     AnsiConsole.Markup("[#FF0000] Nie ma takiego zwierzęcia w bazie[/]\n");
                 }
-                File.WriteAllLines(plik, wszystkieLinie);
+                File.WriteAllLines(plikA, wszystkieLinie);
             }
             else if (choice == "Usuń Zwierzaka")
             {
@@ -68,10 +117,11 @@ namespace Schronisko.Views.Tekstowy
                     string[] daneZwierzaka = wszystkieLinie[j].Split(';');
                     Console.WriteLine($"Imię: {daneZwierzaka[0]}, Wiek: {daneZwierzaka[1]}, Gatunek: {daneZwierzaka[3]}\n");
                 }
+                Console.WriteLine("\nWpisz anuluj jeżeli rezygnujesz z usuwania zwierzat\n");
                 AnsiConsole.Markup("[Deeppink1]Podaj imię zwierzęcia do usunięcia: [/]");
                 string imieDoUsuniecia = Console.ReadLine();
-
-                //int usunieteLinie = wszystkieLinie.RemoveAll(l => l.Contains(imieDoUsuniecia));
+                if (imieDoUsuniecia == "anuluj")
+                    return;
                 int usunieteLinie = wszystkieLinie.RemoveAll(l => l.StartsWith(imieDoUsuniecia + ";"));
                 if (usunieteLinie == 0)
                     Console.WriteLine("Nie znaleziono zwierzęcia o takim imieniu.");
@@ -87,21 +137,30 @@ namespace Schronisko.Views.Tekstowy
                 for(int i=0; i<linie.Count;i++)
                 {
                     var linia = linie[i].Split(';');
-                    if (linia.Length == 10 && linia[8] == "oczekujący")
+                    if (linia.Length == 11 && linia[8] == "oczekujący")
                     {
-                        Console.WriteLine($"Id: {i+1}\n Imię: {linia[0]}\n Nazwisko: {linia[1]}\n Data urodzenia: {linia[2]}\n telefon: {linia[3]}\n email: {linia[4]}\n Czy mieszka w Białymstoku: {linia[5]}\n Zainteresowania: {linia[6]}\n Doświadczenie: {linia[7]}\n");
+                        Console.WriteLine($"Id: {linia[10]}\n Imię: {linia[0]}\n Nazwisko: {linia[1]}\n Data urodzenia: {linia[2]}\n telefon: {linia[3]}\n email: {linia[4]}\n Czy mieszka w Białymstoku: {linia[5]}\n Zainteresowania: {linia[6]}\n Doświadczenie: {linia[7]}\n");
                         var rule = new Rule();
                         AnsiConsole.Write(rule);
                     }
                 }
                 Console.WriteLine("Podaj indeks osoby którą chcesz dodać do grona wolontariuszy: ");
-                int id=int.Parse(Console.ReadLine()) ;
-                var wolontariusz=linie[id - 1].Split(';');
-                wolontariusz[8] = "akceptacja";
-                linie[id-1]= string.Join(';', wolontariusz) + $";{id}";
+                string index=Console.ReadLine() ;
+                if (int.Parse(index) > linie.Count)
+                {
+                    Console.WriteLine("nie ma takiej osoby");
+                    return;
+                }
+                int id=int.Parse(index) ;
+                var osoba = linie[id-1].Split(';');
+                if (osoba[8] == "oczekujący")
+                {
+                    osoba[8] = "akceptacja";   
+                }
+                linie[id - 1] = string.Join(';', osoba);
                 File.WriteAllLines(plikW, linie);
 
-                AnsiConsole.Markup($"Grono wolontariuszy się poszerzyło o [Deeppink1]{wolontariusz[0]}[/]");
+                AnsiConsole.Markup($"Grono wolontariuszy się poszerzyło o [Deeppink1]{osoba[0]}[/]");
             }
             else if (choice == "Edytuj Wolontariusza")
             {
@@ -129,25 +188,33 @@ namespace Schronisko.Views.Tekstowy
                             while (true)
                             {
                                 AnsiConsole.Markup("[Deeppink1]Bieżące dane wolontariusza:[/]\n");
-                                Console.WriteLine($"1. Imię: {daneWolontariusza[0]}, \n2. Nazwisko: {daneWolontariusza[1]},\n3. Data urodzenia: {daneWolontariusza[2]},\n4. telefon: {daneWolontariusza[3]},\n5. email: {daneWolontariusza[4]},\n6. Czy mieszka w Białymstoku: {daneWolontariusza[5]},\n7. Zainteresowania: {daneWolontariusza[6]}\n8. Doświadczenie: {daneWolontariusza[7]}\n,9. Anuluj edycje wolontariusza");
+                                Console.WriteLine($"1. Imię: {daneWolontariusza[0]}, \n2. Nazwisko: {daneWolontariusza[1]},\n3. Data urodzenia: {daneWolontariusza[2]},\n4. telefon: {daneWolontariusza[3]},\n5. email: {daneWolontariusza[4]},\n6. Czy mieszka w Białymstoku: {daneWolontariusza[5]},\n7. Zainteresowania: {daneWolontariusza[6]}\n8. Doświadczenie: {daneWolontariusza[7]},\n9. Anuluj edycje wolontariusza");
                                 Console.WriteLine("\nKtórą informację chcesz edytować? (1-8): ");
                                 int wybor = int.Parse(Console.ReadLine());
                                 if (wybor == 9)
                                     break;
-                               // Console.WriteLine("\nPodaj na co chcesz zmienić: ");
-                                string nowaWartosc="";//= Console.ReadLine();
-
+                                string nowaWartosc="";
+                                Wolontariusz wolontariusz = new Wolontariusz();
                                 bool isValid = true;
                                 switch (wybor)
                                 {
-                                   /* case 1:
-                                    case 2:
-                                    case 4:
-                                    case 6:
-                                    case 7:
-                                        nowaWartosc = Validation.PobierzPoprawneDane("Podaj nową wartość:", daneWolontariusza, $"Element {wybor - 1}") ;
+                                    case 1:     
+                                        nowaWartosc = textInfo.ToTitleCase(Validation.PobierzPoprawneDane("Podaj nową wartość:", wolontariusz, nameof(wolontariusz.Imie)).ToLower());
                                         break;
-                                    case 3: // Data urodzenia - walidacja wieku
+                                    case 2:
+                                        nowaWartosc = textInfo.ToTitleCase(Validation.PobierzPoprawneDane("Podaj nową wartość:", wolontariusz, nameof(wolontariusz.Nazwisko)).ToLower());
+                                        break;
+                                    case 4:
+                                        nowaWartosc = Validation.PobierzPoprawneDane("Podaj nową wartość:", wolontariusz, nameof(wolontariusz.Telefon));
+                                        break;
+                                    case 5:
+                                        nowaWartosc = Validation.PobierzPoprawneDane("Podaj nową wartość:", wolontariusz, nameof(wolontariusz.Email));
+                                        break;
+                                    case 7:
+                                        nowaWartosc = Validation.PobierzPoprawneDane("Podaj nową wartość:", wolontariusz, nameof(wolontariusz.Opis)) ;
+                                        break;
+                                    case 3:
+                                        Console.WriteLine("Podaj nową wartość: ");
                                         nowaWartosc = Console.ReadLine();
                                         if (DateTime.TryParse(nowaWartosc, out DateTime dataUrodzenia) && !validator.wiek(dataUrodzenia))
                                         {
@@ -155,8 +222,9 @@ namespace Schronisko.Views.Tekstowy
                                             isValid = false;
                                         }
                                         break;
-                                   */
-                                    case 5: // Miasto - walidacja czy wolontariusz mieszka w Białymstok
+                                   
+                                    case 6:
+                                        Console.WriteLine("Podaj nową wartość: ");
                                         nowaWartosc = Console.ReadLine();
                                         if (!validator.poprawnoscMiasto(nowaWartosc))
                                         {
@@ -165,7 +233,8 @@ namespace Schronisko.Views.Tekstowy
                                         }
                                         break;
 
-                                    case 8: // Doświadczenie - walidacja na odpowiedź tak/nie
+                                    case 8:
+                                        Console.WriteLine("Podaj nową wartość: ");
                                         nowaWartosc = Console.ReadLine();
                                         if (!validator.poprawnoscDoswiadczenie(nowaWartosc))
                                         {
@@ -189,12 +258,7 @@ namespace Schronisko.Views.Tekstowy
                                     Console.WriteLine("Wprowadzone dane są niepoprawne. Spróbuj ponownie.");
                                 }
                             }
-                            break;
-                            /*daneWolontariusza[wybor - 1] = nowaWartosc;
-                            wszystkieLinie[i] = $"{daneWolontariusza[0]};{daneWolontariusza[1]};{daneWolontariusza[2]};{daneWolontariusza[3]};{daneWolontariusza[4]};{daneWolontariusza[5]};{daneWolontariusza[6]};{daneWolontariusza[7]};{daneWolontariusza[8]};{daneWolontariusza[9]};{daneWolontariusza[10]}";
-                            Console.WriteLine("\nDane wolontariusza zostały zaktualizowane.");
-                            */
-                           
+                            break; 
                         }
                     }
                     if (znaleziono)
@@ -204,10 +268,21 @@ namespace Schronisko.Views.Tekstowy
                 File.WriteAllLines(plikW, wszystkieLinie);
             }
             else if (choice == "Usuń Wolontariusza")
-            { 
+            {
+                var wszystkieLinie = File.ReadAllLines(plikW).ToList();
+
+                for (int j = 0; j < wszystkieLinie.Count; j++)
+                {
+                    string[] daneWolontariusza = wszystkieLinie[j].Split(';');
+                    Console.WriteLine($"ID: {daneWolontariusza[10]}, Imię: {daneWolontariusza[0]}, Nazwisko: {daneWolontariusza[1]}\n");
+                }
+                string[] pom = wszystkieLinie[wszystkieLinie.Count - 1].Split(';');
+                int zmienna = int.Parse(pom[10]) + 1;
+                Console.WriteLine($"Wciśnij {zmienna} aby wyjsc z usuwania");
                 AnsiConsole.Markup("[Deeppink1]Podaj indeks wolontariusza do usunięcia: [/]");
                 string indeks = Console.ReadLine();
-                var wszystkieLinie = File.ReadAllLines(plikW).ToList();
+                if (int.Parse(indeks) == int.Parse(pom[10])+1)
+                    return;
                 int usunieteLinie = wszystkieLinie.RemoveAll(l => l.EndsWith(";" + indeks));
                 if (usunieteLinie == 0)
                     Console.WriteLine("Nie znaleziono osoby o takim indeksie.Może być jeszcze w trybie oczekiwania");
