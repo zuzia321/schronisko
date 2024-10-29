@@ -57,14 +57,10 @@ namespace Schronisko.Models
         }
         public bool wiek(DateOnly dataUrodzenia)
         {
-            DateOnly dzisiaj = DateOnly.FromDateTime(DateTime.Now); // Bieżąca data bez godziny
+            DateOnly dzisiaj = DateOnly.FromDateTime(DateTime.Now);
             int wiek = dzisiaj.Year - dataUrodzenia.Year;
-
-            // Sprawdzenie, czy osoba już miała urodziny w bieżącym roku
             if (dataUrodzenia > dzisiaj.AddYears(-wiek))
                 wiek--;
-
-            // Sprawdzenie, czy wiek wynosi co najmniej 18 lat
             return wiek >= 18;
         }
     }

@@ -14,9 +14,8 @@ namespace Schronisko.Views.Tekstowy
         
         public MenuKalendarz()
         {
-            Wczytaj(); // Wczytaj wydarzenia z pliku podczas inicjalizacji
+            Wczytaj();
         }
-        // Metoda do zapisywania wydarzeń do pliku
         public void Zapisz()
         {
             using (var z = new StreamWriter(plik))
@@ -27,7 +26,6 @@ namespace Schronisko.Views.Tekstowy
                 }
             }
         }
-        // Metoda do wczytywania wydarzeń z pliku
         public void Wczytaj()
         {
             if (File.Exists(plik))
@@ -121,22 +119,15 @@ namespace Schronisko.Views.Tekstowy
                 kalendarz.BorderColor(Color.Pink1);
                 kalendarz.HeaderStyle(Color.Pink1);
 
-                // Dodajemy wydarzenia z listy dni pracy, które pasują do wybranego miesiąca
                 foreach (var (data, opis) in dniPracy)
                 {
                     if (data.Year == rok && data.Month == miesiac)
                         kalendarz.AddCalendarEvent(data.Year, data.Month, data.Day);
                 }
 
-                // Podświetlamy wybrany dzień
                 kalendarz.HighlightStyle(Style.Parse("magenta")).AddCalendarEvent(rok, miesiac, wybranyDzien);
-
-                // Wyświetlamy kalendarz w konsoli
                 AnsiConsole.Write(kalendarz);
-
-                // Wyświetlamy wydarzenia dla wybranego dnia
                 var wydarzenia = dniPracy.FindAll(wydarzenie => wydarzenie.Item1.Year == rok && wydarzenie.Item1.Month == miesiac && wydarzenie.Item1.Day == wybranyDzien);
-
 
                 if (wydarzenia.Count > 0)
                 {
@@ -153,10 +144,7 @@ namespace Schronisko.Views.Tekstowy
                     AnsiConsole.MarkupLine($"Grafik na [bold Magenta] [on Pink1]{wybranyDzien}.{miesiac}[/][/] jest wolny");
                 }
 
-                // Oczekiwanie na wejście od użytkownika
                 ConsoleKeyInfo key = Console.ReadKey();
-
-                // Obsługa klawiszy strzałek
                 if (key.Key == ConsoleKey.RightArrow && wybranyDzien < dniWMiesiacu)
                 {
                     wybranyDzien++;
@@ -183,15 +171,12 @@ namespace Schronisko.Views.Tekstowy
                 {
                     DodajDzienPracy(wybranyDzien, rok, miesiac,nazwa);
                 }
-               
             }
         }
-
         private void DodajDzienPracy(int wybranyDzien, int rok, int miesiac,string nazwa)
         {
             var data = new DateTime(rok, miesiac, wybranyDzien);
 
-            // Sprawdzenie, czy można dodać nowe wydarzenie
             var wydarzenia = dniPracy.FindAll(wydarzenie => wydarzenie.Item1.Year == rok && wydarzenie.Item1.Month == miesiac && wydarzenie.Item1.Day == wybranyDzien);
             
             if (wydarzenia.Count >= MaxOsob)
@@ -203,10 +188,6 @@ namespace Schronisko.Views.Tekstowy
                 Console.ReadKey();
                 return;
             }
-
-            // Prośba o opis wydarzenia
-            //Console.Clear();
-            //AnsiConsole.MarkupLine($"{data:yyyy-MM-dd}:");
             DodajDzien(data, nazwa);
 
         }

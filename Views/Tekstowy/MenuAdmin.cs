@@ -225,8 +225,6 @@ namespace Schronisko.Views.Tekstowy
 
                                         if (DateOnly.TryParseExact(nowaWartosc, "dd.MM.yyyy", null, DateTimeStyles.None, out dataUrodzenia))
                                         {
-                                           
-                                            // Sprawdź wiek
                                             if (!validator.wiek(dataUrodzenia))
                                             {
                                                 Console.WriteLine("Wolontariusz musi mieć co najmniej 18 lat.");

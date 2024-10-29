@@ -39,7 +39,7 @@ namespace Schronisko.Views.Tekstowy
         }
         public void HasloW(WebApplication app)
         {
-            string id;// ,h;
+            string id;
             AnsiConsole.Markup("Podaj indeks: ");
             int i;
             for (i = 3; i > 0; i--)

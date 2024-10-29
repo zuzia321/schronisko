@@ -4,5 +4,5 @@ Gacek;5;08.07.2024;papuga;sępica;tak;nieprzewidywalna, nietypowa
 Precel;4;02.10.2024;pies;hart;Adopted;nieśmiały
 Jogurt;3/12;21.10.2024;kot;czarno-biały;nie;ślepy
 Burek;2;26.10.2024;pies;york;tak;kocha pasztet
-Kotlet;4/12;25.10.2024;kot;norweski leśny;nie;uwielbia jeść
-Rudy;8;2024-10-03;pies;spaniel;tak;piekny, lagodny, lubi dzieci
+Kotlet;4/12;25.10.2024;kot;norweski leśny;tak;uwielbia jeść
+Rudy;8;2024-10-03;pies;York;tak;piekny, lagodny, lubi dzieci

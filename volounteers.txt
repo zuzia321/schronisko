@@ -5,7 +5,7 @@ Konrad;Kunicki;2003.12.09;123897456;biceps@onet.pl;nie;skiny i siłownia;nie;akc
 Henryk;Sienkiwicz;12.06.1967;123543678;h.sien@wp.pl;nie;kocham czytać ksiązki, sam zajmuję się poezją;nie;akceptacja;WPustyniIWPuszczy;6
 Julisz;Słowacki;13.06.1967 00:00:00;123321213;słowa@gmail.com;tak;poezja moim życiem;nie;akceptacja;Balladyna;7
 Adam;Mickiewicz;9.10.1967;456578965;mickey@onet.pl;tak;ojczyzna na zawsze;nie;akceptacja;tadzik;8
-Sylwester;Baton;30.09.2003 00:00:00;876145624;snickers@onet.pl;nie;basen i siłownia;tak;oczekujący;masłoOrzechowe;9
-Zbigniew;Polski;12.12.1997;123456789;z.pl@gmail.com;tak;jazda rowerem;tak;akceptacja;cycling;10
-Halina;Malina;13.05.2005;678765234;malinki@onet.pl;tak;grzybobranie;tak;oczekujący;grzyb_malina;11
-Stefan;Burczymucha;31.10.1993;987654321;mucha@wp.pl;nie;spacerki;tak;akceptacja;fly;12
+Sylwester;Baton;30.09.2003 00:00:00;876145624;snickers@onet.pl;nie;basen i siłownia;tak;akceptacja;masłoOrzechowe;9
+Zbigniew;Polski;12.12.1997;123456789;z.pl@gmail.com;nie;jazda rowerem;tak;akceptacja;cycling;10
+Halina;Malina;13.05.2005;678765234;malinki@onet.pl;tak;grzybobranie;tak;akceptacja;grzyb_malina;11
+Ela;Pies;12.01.1998;123456789;ela@gmail.com;nie;koty;tak;oczekujący;koty;13

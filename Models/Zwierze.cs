@@ -19,7 +19,7 @@ namespace Schronisko.Models
         public DateOnly OdKiedyWSchronisku { get; set; }
 
         [Required(ErrorMessage = "Rodzaj zwierzęcia jest wymagany")]
-        public string RodzajZwierzecia {get; set;}//może rozwijalna lista, jezeli jakiegos nie ma to inne i pojawia sie pole do wpisania
+        public string RodzajZwierzecia {get; set;}
 
         [Required(ErrorMessage = "Gatunek jest wymagany")]
         public string Gatunek { get; set;}
@@ -28,7 +28,6 @@ namespace Schronisko.Models
        
         [Required(ErrorMessage = "Opis jest wymagany")]
         public string Opis { get; set; }
-        //zdjęcie
     }
     public class poprawnoscZwierze()
     {

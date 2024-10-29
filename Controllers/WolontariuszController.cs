@@ -20,20 +20,15 @@ namespace Schronisko.Controllers
         [HttpPost]
         public ActionResult Create(Wolontariusz wolontariusz)
         {
-           // string plik = ("volounteers.txt");
             int index = plik.Count() + 1;
             Console.Write($"Twoj indeks do logowania: {index} ");
             ViewBag.Message = wolontariusz.Imie + " " + wolontariusz.Nazwisko+" "+index;
-           // Console.WriteLine($"{wolontariusz.Imie}");
 
             string daneWolontariusz = $"\n{wolontariusz.Imie};{wolontariusz.Nazwisko};{wolontariusz.DataUrodzenia};{wolontariusz.Telefon};{wolontariusz.Email};{wolontariusz.Miasto};{wolontariusz.Opis};{wolontariusz.Doswiadczenie};{wolontariusz.Stan}";
             System.IO.File.AppendAllText(plik, daneWolontariusz);
 
             return View();
         }
-
-
-        //konsola
         private WidokTekstowy widokTekstowy;
         public WolontariuszController(WidokTekstowy _widokTekstowy)
         {

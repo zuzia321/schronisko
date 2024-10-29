@@ -40,22 +40,6 @@ namespace Schronisko.Views.Tekstowy
                 else
                     Console.WriteLine("Niepoprawny format daty. Proszę podać datę w formacie rrrr-mm-dd.");
             }
-            //wolontariusz.DataUrodzenia = Validation.PobierzPoprawneDane("Podaj datę urodzenia (format: YYYY-MM-DD):", wolontariusz, nameof(wolontariusz.DataUrodzenia));
-            /* Console.Write("Podaj datę urodzenia (rrrr-mm-dd): ");
-             wolontariusz.DataUrodzenia = DateOnly.Parse(Console.ReadLine());
-             if(!poprawnoscW.wiek(wolontariusz.DataUrodzenia))
-             {
-                 Console.WriteLine("Nie możesz być wolontariuszem. Nie masz 18 lat");
-                 Console.WriteLine("Czy chcesz wrócić do menu? (tak/nie): ");
-                 string wybor = Console.ReadLine()?.ToLower();
-                 if (wybor == "tak")
-                 {
-                     pom = 1;
-                     return null;
-                 }
-                 else 
-                     Environment.Exit(0);
-             }*/
 
             wolontariusz.Telefon = Validation.PobierzPoprawneDane("Podaj numer telefonu:", wolontariusz, nameof(wolontariusz.Telefon));
             wolontariusz.Email = Validation.PobierzPoprawneDane("Podaj adres e-mail:", wolontariusz, nameof(wolontariusz.Email));
@@ -87,7 +71,6 @@ namespace Schronisko.Views.Tekstowy
 
             int index = (int.Parse(linia[10])) + 1;
             wolontariusz.Id=index;
-            //string daneWolontariusz = $"\n{wolontariusz.Imie};{wolontariusz.DataUrodzenia};{wolontariusz.Telefon};{wolontariusz.Email}";
             string daneWolontariusz = $"{wolontariusz.Imie};{wolontariusz.Nazwisko};{wolontariusz.DataUrodzenia};{wolontariusz.Telefon};{wolontariusz.Email};{wolontariusz.Miasto};{wolontariusz.Opis};{wolontariusz.Doswiadczenie};{wolontariusz.Stan};{wolontariusz.Haslo};{wolontariusz.Id}\n";
             File.AppendAllText(plikW, daneWolontariusz);
 
@@ -96,14 +79,6 @@ namespace Schronisko.Views.Tekstowy
         public void WyswietlWolontariusza(Wolontariusz wolontariusz)
         {
             Console.Clear();
-            //int index = File.ReadAllLines(plikW).Length;
-            /*
-            var wszystkieLinie = File.ReadAllLines(plikW).ToList();
-            int dlugosc = wszystkieLinie.Count;
-            var linia=wszystkieLinie[dlugosc - 1].Split(';');
-
-            int index = (int.Parse(linia[10]))+1;
-            */
             AnsiConsole.Markup($"[Deeppink1]Twoj wygenerowany indeks do logowania:[bold] {wolontariusz.Id}[/][/] ");
             Console.WriteLine("\nDane wolontariusza:");
             Console.WriteLine($" Imię: {wolontariusz.Imie}");
