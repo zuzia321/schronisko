@@ -25,22 +25,37 @@ namespace Schronisko.Views.Tekstowy
             wolontariusz.Imie = textInfo.ToTitleCase(Validation.PobierzPoprawneDane("Podaj imię:", wolontariusz, nameof(wolontariusz.Imie)).ToLower());
             wolontariusz.Nazwisko = textInfo.ToTitleCase(Validation.PobierzPoprawneDane("Podaj nazwisko:", wolontariusz, nameof(wolontariusz.Nazwisko)).ToLower());
 
-            //wolontariusz.DataUrodzenia = Validation.PobierzPoprawneDane("Podaj datę urodzenia (format: YYYY-MM-DD):", wolontariusz, nameof(wolontariusz.DataUrodzenia));
-            Console.Write("Podaj datę urodzenia (rrrr-mm-dd): ");
-            wolontariusz.DataUrodzenia = DateTime.Parse(Console.ReadLine());
-            if(!poprawnoscW.wiek(wolontariusz.DataUrodzenia))
+            DateOnly dataUrodzenia;
+            bool isValidDate = false;
+
+            while (!isValidDate)
             {
-                Console.WriteLine("Nie możesz być wolontariuszem. Nie masz 18 lat");
-                Console.WriteLine("Czy chcesz wrócić do menu? (tak/nie): ");
-                string wybor = Console.ReadLine()?.ToLower();
-                if (wybor == "tak")
+                Console.Write("Podaj datę urodzenia (rrrr-mm-dd) lub (dd-mm-rrrr): ");
+                string input = Console.ReadLine();
+                if (DateOnly.TryParse(input, out dataUrodzenia))
                 {
-                    pom = 1;
-                    return null;
+                    wolontariusz.DataUrodzenia = dataUrodzenia;
+                    isValidDate = true;
                 }
-                else 
-                    Environment.Exit(0);
+                else
+                    Console.WriteLine("Niepoprawny format daty. Proszę podać datę w formacie rrrr-mm-dd.");
             }
+            //wolontariusz.DataUrodzenia = Validation.PobierzPoprawneDane("Podaj datę urodzenia (format: YYYY-MM-DD):", wolontariusz, nameof(wolontariusz.DataUrodzenia));
+            /* Console.Write("Podaj datę urodzenia (rrrr-mm-dd): ");
+             wolontariusz.DataUrodzenia = DateOnly.Parse(Console.ReadLine());
+             if(!poprawnoscW.wiek(wolontariusz.DataUrodzenia))
+             {
+                 Console.WriteLine("Nie możesz być wolontariuszem. Nie masz 18 lat");
+                 Console.WriteLine("Czy chcesz wrócić do menu? (tak/nie): ");
+                 string wybor = Console.ReadLine()?.ToLower();
+                 if (wybor == "tak")
+                 {
+                     pom = 1;
+                     return null;
+                 }
+                 else 
+                     Environment.Exit(0);
+             }*/
 
             wolontariusz.Telefon = Validation.PobierzPoprawneDane("Podaj numer telefonu:", wolontariusz, nameof(wolontariusz.Telefon));
             wolontariusz.Email = Validation.PobierzPoprawneDane("Podaj adres e-mail:", wolontariusz, nameof(wolontariusz.Email));

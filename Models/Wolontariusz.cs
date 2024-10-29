@@ -18,7 +18,7 @@ namespace Schronisko.Models
         
         [Required(ErrorMessage = "Data urodzenia jest wymagana.")]
         [DataType(DataType.Date, ErrorMessage = "Podaj poprawną datę.")]
-        public DateTime DataUrodzenia { get; set; }
+        public DateOnly DataUrodzenia { get; set; }
 
         [Required(ErrorMessage = "Numer telefonu jest wymagany.")]
         [StringLength(9, MinimumLength = 9, ErrorMessage = "Numer telefonu musi mieć dokładnie 9 cyfr.")]
@@ -55,12 +55,15 @@ namespace Schronisko.Models
                 return true;
             return false;
         }
-        public bool wiek(DateTime dataUrodzenia)
+        public bool wiek(DateOnly dataUrodzenia)
         {
-            int wiek = DateTime.Now.Year - dataUrodzenia.Year;
+            DateOnly dzisiaj = DateOnly.FromDateTime(DateTime.Now); // Bieżąca data bez godziny
+            int wiek = dzisiaj.Year - dataUrodzenia.Year;
+
             // Sprawdzenie, czy osoba już miała urodziny w bieżącym roku
-            if (dataUrodzenia > DateTime.Now.AddYears(-wiek))
+            if (dataUrodzenia > dzisiaj.AddYears(-wiek))
                 wiek--;
+
             // Sprawdzenie, czy wiek wynosi co najmniej 18 lat
             return wiek >= 18;
         }

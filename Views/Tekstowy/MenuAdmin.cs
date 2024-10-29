@@ -134,9 +134,9 @@ namespace Schronisko.Views.Tekstowy
             {
                 var linie = File.ReadAllLines(plikW).ToList();
 
-                for(int i=0; i<linie.Count;i++)
+                for(int j=0; j<linie.Count;j++)
                 {
-                    var linia = linie[i].Split(';');
+                    var linia = linie[j].Split(';');
                     if (linia.Length == 11 && linia[8] == "oczekujący")
                     {
                         Console.WriteLine($"Id: {linia[10]}\n Imię: {linia[0]}\n Nazwisko: {linia[1]}\n Data urodzenia: {linia[2]}\n telefon: {linia[3]}\n email: {linia[4]}\n Czy mieszka w Białymstoku: {linia[5]}\n Zainteresowania: {linia[6]}\n Doświadczenie: {linia[7]}\n");
@@ -146,21 +146,26 @@ namespace Schronisko.Views.Tekstowy
                 }
                 Console.WriteLine("Podaj indeks osoby którą chcesz dodać do grona wolontariuszy: ");
                 string index=Console.ReadLine() ;
-                if (int.Parse(index) > linie.Count)
+                int i;
+                string imie = "";
+                string[] osoba = [];
+                for(i=0;i<linie.Count; i++)
                 {
-                    Console.WriteLine("nie ma takiej osoby");
-                    return;
+                    osoba = linie[i].Split(';');
+                    if (osoba[10]==index)
+                    {
+                        if (osoba[8] == "oczekujący")
+                        {
+                            imie = osoba[0];
+                            osoba[8] = "akceptacja";
+                            break;
+                        }
+                    }
                 }
-                int id=int.Parse(index) ;
-                var osoba = linie[id-1].Split(';');
-                if (osoba[8] == "oczekujący")
-                {
-                    osoba[8] = "akceptacja";   
-                }
-                linie[id - 1] = string.Join(';', osoba);
+                linie[i] = string.Join(';', osoba);
                 File.WriteAllLines(plikW, linie);
 
-                AnsiConsole.Markup($"Grono wolontariuszy się poszerzyło o [Deeppink1]{osoba[0]}[/]");
+                AnsiConsole.Markup($"Grono wolontariuszy się poszerzyło o [Deeppink1]{imie}[/]");
             }
             else if (choice == "Edytuj Wolontariusza")
             {
@@ -216,13 +221,19 @@ namespace Schronisko.Views.Tekstowy
                                     case 3:
                                         Console.WriteLine("Podaj nową wartość: ");
                                         nowaWartosc = Console.ReadLine();
-                                        if (DateTime.TryParse(nowaWartosc, out DateTime dataUrodzenia) && !validator.wiek(dataUrodzenia))
+                                        DateOnly dataUrodzenia;
+
+                                        if (DateOnly.TryParseExact(nowaWartosc, "dd.MM.yyyy", null, DateTimeStyles.None, out dataUrodzenia))
                                         {
-                                            Console.WriteLine("Wolontariusz musi mieć co najmniej 18 lat.");
-                                            isValid = false;
+                                           
+                                            // Sprawdź wiek
+                                            if (!validator.wiek(dataUrodzenia))
+                                            {
+                                                Console.WriteLine("Wolontariusz musi mieć co najmniej 18 lat.");
+                                                isValid = false;
+                                            }
                                         }
                                         break;
-                                   
                                     case 6:
                                         Console.WriteLine("Podaj nową wartość: ");
                                         nowaWartosc = Console.ReadLine();
