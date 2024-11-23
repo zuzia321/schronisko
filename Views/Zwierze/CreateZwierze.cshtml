@@ -4,7 +4,7 @@
     ViewData["Title"] = "CreateZwierze";
 }
 
-<h1>Zwierze</h1>
+<h1>Formularz nowego zwierzaka</h1>
 
 <h4>@ViewBag.Message</h4>
 <hr />
@@ -12,12 +12,7 @@
     <div class="col-md-4">
         <form asp-action="CreateZwierze">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-           <!-- <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div>
-            -->
+         
             <div class="form-group">
                 <label asp-for="Imie" class="control-label"></label>
                 <input asp-for="Imie" class="form-control" />
@@ -33,43 +28,48 @@
                 <label asp-for="OdKiedyWSchronisku" class="control-label"></label>
                 <input asp-for="OdKiedyWSchronisku" class="form-control" type="date" />
                 <span asp-validation-for="OdKiedyWSchronisku" class="text-danger"></span>
-            </div>
-            <!-- automatyczne
-                <div class="form-group">
-                <label asp-for="OdKiedyWSchronisku" class="control-label"></label>
-                <input asp-for="OdKiedyWSchronisku" class="form-control" />
-                <span asp-validation-for="OdKiedyWSchronisku" class="text-danger"></span>
-            </div>
-            -->
-            <div class="form-group">
-                <label asp-for="RodzajZwierzecia" class="control-label"></label>
-                <input asp-for="RodzajZwierzecia" class="form-control" />
-                <span asp-validation-for="RodzajZwierzecia" class="text-danger"></span>
-            </div>
+            </div>         
 
-
-<!--            <div class="form-group form-check">
+          <div class="form-group form-check">
                 <label asp-for="RodzajZwierzecia" class="control-label"></label>
                 <select asp-for="RodzajZwierzecia" class="form-control">
                     <option value="">Wybierz </option>
-                    <option value="Dog">Pies</option>
-                    <option value="Cat">Kot</option>
-                    <option value="Hamster">Chomik</option>
+                    <option value="Pies">Pies</option>
+                    <option value="Kot">Kot</option>
+                    <option value="Chomik">Chomik</option>
+                    <option value="Królik">Królik</option>
+                    <option value="Świnka morska">Świnka morska</option>
+                    <option value="Szczur">Szczur</option>
+                    <option value="Mysz">Mysz</option>
+                    <option value="Szynszyla">Szynszyla</option>
+                    <option value="Żółw">Żółw</option>
+                    <option value="Jaszczurka">Jaszczurka</option>
+                    <option value="Ptak">Ptak</option>
+                    <option value="Krowa">Krowa</option>
+                    <option value="Świnia">Świnia</option>
+                    <option value="Kura">Kura</option>
+                    <option value="Kaczka">Laczka</option>
+                    <option value="Owca">Owca</option>
+                    <option value="Koza">Koza</option>
+                    <option value="Gęś">Gęś</option>
                 </select>
                 <span asp-validation-for="RodzajZwierzecia" class="text-danger"></span>
             </div>
-            -->
 
             <div class="form-group">
                 <label asp-for="Gatunek" class="control-label"></label>
                 <input asp-for="Gatunek" class="form-control" />
                 <span asp-validation-for="Gatunek" class="text-danger"></span>
             </div>
-           
+            <div class="form-group">
+                <label asp-for="Płeć" class="control-label"></label>
+                <input asp-for="Płeć" class="form-control" />
+                <span asp-validation-for="Płeć" class="text-danger"></span>
+            </div>
             <div class="form-group form-check">
                 <label class="control-label">Stan</label>
                 <div>
-                    <input type="radio" asp-for="Stan" class="form-check-input" value="Adopted" />
+                    <input type="radio" asp-for="Stan" class="form-check-input" value="" />
                     <label class="form-check-label" for="Stan">Zaadoptowany</label>
                 </div>
                 <div>
