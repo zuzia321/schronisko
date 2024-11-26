@@ -40,9 +40,16 @@
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Miasto" /> @Html.DisplayNameFor(model => model.Miasto)
-                </label>
+                <label asp-for="Miasto" class="control-label"></label>
+                <div>
+                    <input type="radio" asp-for="Miasto" class="form-check-input" value="tak" />
+                    <label class="form-check-label" for="Miasto">tak</label>
+                </div>
+                <div>
+                    <input type="radio" asp-for="Miasto" class="form-check-input" value="nie" />
+                    <label class="form-check-label" for="Miasto">nie</label>
+                </div>
+                <span asp-validation-for="Miasto" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Opis" class="control-label"></label>
@@ -50,74 +57,25 @@
                 <span asp-validation-for="Opis" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Doswiadczenie" /> @Html.DisplayNameFor(model => model.Doswiadczenie)
-                </label>
+                <label asp-for="Doswiadczenie" class="control-label"></label>
+                <div>
+                    <input type="radio" asp-for="Doswiadczenie" class="form-check-input" value="tak" />
+                    <label class="form-check-label" for="Doswiadczenie">tak</label>
+                </div>
+                <div>
+                    <input type="radio" asp-for="Doswiadczenie" class="form-check-input" value="nie" />
+                    <label class="form-check-label" for="Doswiadczenie">nie</label>
+                </div>
+                <span asp-validation-for="Doswiadczenie" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Haslo" class="control-label"></label>
                 <input asp-for="Haslo" class="form-control" />
                 <span asp-validation-for="Haslo" class="text-danger"></span>
             </div>
-          <!--  @{
-                var dniTygodnia= new List<string> { "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota", "Niedziela" };
-            }-->
-            <!-- <div class="form-group">
-                 <label class="control-label">Wybierz dyspozycyjność: </label>
-            @foreach (var dzien in dniTygodnia)
-            {
-                         <div class="form-check">
-                             <input type="checkbox" name="Dyspozycyjnosc" class="form-check-input" value="@dzien" />
-                             <label class="form-check-label">@dzien</label>
-                         </div>
-            }
-             </div>-->
-            <!--
-            <div class="form-group">
-                <label class="control-label">Wybierz dyspozycyjność:</label>
-                <div class="form-check">
-                    <input type="checkbox" name="Dyspozycyjnosc" class="form-check-input" value="Poniedziałek" />
-                    <label class="form-check-label">Poniedziałek</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" name="Dyspozycyjnosc" class="form-check-input" value="Wtorek" />
-                    <label class="form-check-label">Wtorek</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" name="Dyspozycyjnosc" class="form-check-input" value="Środa" />
-                    <label class="form-check-label">Środa</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" name="Dyspozycyjnosc" class="form-check-input" value="Czwartek" />
-                    <label class="form-check-label">Czwartek</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" name="Dyspozycyjnosc" class="form-check-input" value="Piątek" />
-                    <label class="form-check-label">Piątek</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" name="Dyspozycyjnosc" class="form-check-input" value="Sobota" />
-                    <label class="form-check-label">Sobota</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" name="Dyspozycyjnosc" class="form-check-input" value="Niedziela" />
-                    <label class="form-check-label">Niedziela</label>
-                </div>
-                <span asp-validation-for="Dyspozycyjnosc" class="text-danger"></span>
-            </div>
-            -->
-           <!--<div class="form-group form-check">
-                <label asp-for="Dyspozycyjnosc" class="control-label"></label>
-                <select asp-for="Dyspozycyjnosc" class="form-control">
-                    <option value="">Wybierz </option>
-                    <option value="Monday">Poniedziałek</option>
-                    <option value="Tuseday">Wtorek</option>
-                    <option value="Wednsday">Środa</option>
-                </select>
-                <span asp-validation-for="Dyspozycyjnosc" class="text-danger"></span>
-            </div>
-            -->
-
+        
+        
+          
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

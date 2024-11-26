@@ -41,7 +41,7 @@ namespace Schronisko.Models
         [Display(Name = "Czy posiadasz ogród?")]
         public string Ogrod {  get; set; }
 
-        [Display(Name = "Podaj ilośc osb mieszkających z tobą")]
+        [Display(Name = "Podaj ilość osób mieszkających z tobą")]
         [Required(ErrorMessage ="Ilosc osob wymagana")]
         [RegularExpression(@"^(30|[1-2]?[0-9])$", ErrorMessage ="Ilość osób musi być liczbą od 1-30")]
         public string IloscOsob {  get; set; }
@@ -52,7 +52,9 @@ namespace Schronisko.Models
         [Display(Name = "Czy aktualnie posiadasz jakieś zwierzeta? Jeżeli tak to jakie?")]
         public string? AktualneZwierzeta { get; set; }
 
-        public int ZwierzeId {  get; set; }
+  
+        public int ZwierzakId { get; set; }
+        public Zwierze Zwierzak { get; set; }
 
     }
     public class poprawnoscAdopcji()

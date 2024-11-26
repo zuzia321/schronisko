@@ -39,7 +39,7 @@ namespace Schronisko.Models
         [Required(ErrorMessage = "Opis jest wymagany")]
         public string Opis { get; set; }
 
-        public List<Adopcja> Adopcje { get; set; } = new();
+        public List<Adopcja> Adopcje { get; set; }
     }
     public class poprawnoscZwierze()
     {

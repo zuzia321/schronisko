@@ -29,10 +29,5 @@ namespace Schronisko.Controllers
         {
             widokTekstowy = _widokTekstowy;
         }
-       /* public void StworzIWyswietlAdopcja()
-        {
-            Zwierze noweZwierze = widokTekstowy.stworzZwierze();
-            widokTekstowy.WyswietlZwierze(noweZwierze);
-        }*/
     }
 }

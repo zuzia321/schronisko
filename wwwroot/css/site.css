@@ -1,23 +1,183 @@
-html {
-  font-size: 14px;
+/* custom-styles.css */
+
+/* Styl dla nag³ówka */
+header {
+    background-color: #f8f9fa;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    font-family: 'Coiny', cursive;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+.navbar {
+    padding: 15px;
+    color: #ff1744;
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ff1744;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+.navbar-nav .nav-link {
+    font-size: 1.1rem;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+    color: #ff1744;
+
 }
 
-body {
-  margin-bottom: 60px;
-  background:#ffd6ea;
+    .navbar-nav .nav-link:hover {
+        color: rgba(0, 0, 0, 0.1);
+    }
+
+/* Styl dla g³ównego kontenera */
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    background-color: #C94E71;
 }
+
+/* Styl dla g³ównej sekcji */
+main {
+    background-color: #F0A8BD;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: 'Coiny', cursive;
+}
+
+/* Styl dla przycisków */
+button, .btn {
+    background-color: #7AA865;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  
+}
+
+    button:hover, .btn:hover {
+        background-color: #7AA865;
+    }
+
+/* Responsywnoœæ */
+@media (max-width: 768px) {
+    .navbar-nav {
+        text-align: center;
+    }
+
+        .navbar-nav .nav-link {
+            margin: 5px 0;
+        }
+}
+/* Styl dla formularzy */
+form {
+    background-color: #ffcdd2;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    max-width: 600px;
+    margin: 20px auto; /* Centrowanie formularza */
+    font-family: 'Coiny', cursive;
+}
+
+    /* Styl dla etykiet w formularzach */
+    form label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 8px;
+        font-size: 1rem;
+        color: #333333;
+    }
+
+    /* Styl dla pól tekstowych */
+    form input[type="text"],
+    form input[type="email"],
+    form input[type="password"],
+    form input[type="number"],
+    form select,
+    form textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 1rem;
+        box-sizing: border-box; /* Zapewnienie, ¿e padding nie wp³ywa na szerokoœæ pola */
+        transition: border-color 0.3s ease;
+    }
+
+        /* Styl dla pól tekstowych po najechaniu lub zaznaczeniu */
+        form input[type="text"]:focus,
+        form input[type="email"]:focus,
+        form input[type="password"]:focus,
+        form input[type="number"]:focus,
+        form select:focus,
+        form textarea:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+    /* Styl dla przycisków w formularzach */
+    form button,
+    form .btn {
+        background-color: #28a745;
+        color: #ffffff;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        form button:hover,
+        form .btn:hover {
+            background-color: #;
+        }
+
+    /* Styl dla tekstu pomocniczego */
+    form .form-text {
+        font-size: 0.9rem;
+        color: #6c757d;
+    }
+
+    /* Styl dla grup przycisków */
+    form .form-group {
+        margin-bottom: 15px;
+    }
+
+    /* Styl dla formularzy wielolinijkowych */
+    form textarea {
+        resize: vertical; /* Pozwala na zmianê wysokoœci, ale nie szerokoœci */
+        min-height: 100px;
+    }
+
+    /* Styl dla b³êdów walidacji */
+    form .error {
+        color: #dc3545;
+        font-size: 0.9rem;
+        margin-top: -10px;
+        margin-bottom: 10px;
+    }
+    form input[type="checkbox"] {
+        appearance: none; /* Usuwa domyœlny wygl¹d */
+        width: 20px;
+        height: 20px;
+        border: 2px solid #007bff;
+        border-radius: 4px;
+        margin-right: 10px;
+        outline: none;
+        cursor: pointer;
+        position: relative;
+    }
+
+        /* Po zaznaczeniu */
+        form input[type="checkbox"]:checked {
+            background-color: #007bff;
+            border-color: #0056b3;
+        }

@@ -43,7 +43,12 @@ namespace Schronisko.Views.Tekstowy
 
             wolontariusz.Telefon = Validation.PobierzPoprawneDane("Podaj numer telefonu:", wolontariusz, nameof(wolontariusz.Telefon));
             wolontariusz.Email = Validation.PobierzPoprawneDane("Podaj adres e-mail:", wolontariusz, nameof(wolontariusz.Email));
-
+            while (!poprawnosc.poprawnoscEmail(wolontariusz.Email))
+            {
+                Console.WriteLine("Podaj poprawny email. Nie istnieje taka domena maila");
+                Console.Write("Podaj adres e-mail: ");
+                wolontariusz.Email = Console.ReadLine();
+            }
             Console.Write("Czy mieszkasz w Białymstoku (tak/nie): ");
             wolontariusz.Miasto = Console.ReadLine();
             while (!poprawnosc.poprawnoscDoswiadczenie(wolontariusz.Miasto))

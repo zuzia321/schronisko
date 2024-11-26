@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Net.Sockets;
+using System.Net;
 
 namespace Schronisko.Models
 {
@@ -34,7 +36,7 @@ namespace Schronisko.Models
         [EmailAddress(ErrorMessage = "Podaj poprawny adres email (musi zawierać @).")]
         public string Email { get; set; }
 
-        [Display(Name = "Mieszkasz w Białymstoku czy poza?")]
+        [Display(Name = "Czy mieszkasz w Białymstoku?")]
         public string Miasto { get; set; }
 
         [Display(Name = "Podaj jakie są twoje zainteresowania, co lubisz robić w wolnym czasie itd.")]
@@ -70,6 +72,19 @@ namespace Schronisko.Models
             if (dataUrodzenia > dzisiaj.AddYears(-wiek))
                 wiek--;
             return wiek >= 18;
+        }
+        public bool poprawnoscEmail(string email)
+        {
+            try
+            {
+                var domain = email.Substring(email.IndexOf('@') + 1);
+                var hostEntry = Dns.GetHostEntry(domain);
+                return hostEntry.AddressList.Length > 0;
+            }
+            catch (SocketException)
+            {
+                return false;
+            }
         }
     }
 }

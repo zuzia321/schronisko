@@ -61,20 +61,40 @@
                 <input asp-for="Gatunek" class="form-control" />
                 <span asp-validation-for="Gatunek" class="text-danger"></span>
             </div>
-            <div class="form-group">
+          <!--  <div class="form-group">
+                <label class="control-label">Płeć</label>
+                <div class="form-check">
+                    <input asp-for="Płeć" type="checkbox" value="Samica" id="samica" class="form-check-input">
+                    <label for="samica" class="form-check-label">Samica</label>
+                </div>
+                <div class="form-check">
+                    <input asp-for="Płeć" type="checkbox" value="Samiec" id="samiec" class="form-check-input">
+                    <label for="samiec" class="form-check-label">Samiec</label>
+                </div>
+
+                <span asp-validation-for="Płeć" class="text-danger"></span>
+            </div>-->
+            <div class="form-group form-check">
                 <label asp-for="Płeć" class="control-label"></label>
-                <input asp-for="Płeć" class="form-control" />
+                <div>
+                    <input type="radio" asp-for="Płeć" class="form-check-input" value="samica" />
+                    <label class="form-check-label" for="Płeć">Samica</label>
+                </div>
+                <div>
+                    <input type="radio" asp-for="Płeć" class="form-check-input" value="samiec" />
+                    <label class="form-check-label" for="Płeć">Samiec</label>
+                </div>
                 <span asp-validation-for="Płeć" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
-                <label class="control-label">Stan</label>
+                <label asp-for="Stan" class="control-label"></label>
                 <div>
-                    <input type="radio" asp-for="Stan" class="form-check-input" value="" />
-                    <label class="form-check-label" for="Stan">Zaadoptowany</label>
+                    <input type="radio" asp-for="Stan" class="form-check-input" value="tak" />
+                    <label class="form-check-label" for="Stan">tak</label>
                 </div>
                 <div>
-                    <input type="radio" asp-for="Stan" class="form-check-input" value="ToAdopt" />
-                    <label class="form-check-label" for="Stan">Do adopcji</label>
+                    <input type="radio" asp-for="Stan" class="form-check-input" value="nie" />
+                    <label class="form-check-label" for="Stan">nie</label>
                 </div>
                 <span asp-validation-for="Stan" class="text-danger"></span>
             </div>
